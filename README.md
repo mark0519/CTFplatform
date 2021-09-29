@@ -3,7 +3,7 @@
 
 ## TodoList
 
-- [ ] index
+- [ ] home
 - [ ] about
 - [ ] admin
 - [ ] challenges
