@@ -3,9 +3,10 @@
 
 ## TodoList
 
+- [ ] index
 - [ ] admin
 - [ ] challenges
-- [ ] login
+- [ ] login & register
 - [ ] scoreboard
 - [ ] teams
 - [ ] users
