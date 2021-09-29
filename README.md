@@ -4,6 +4,7 @@
 ## TodoList
 
 - [ ] index
+- [ ] about
 - [ ] admin
 - [ ] challenges
 - [ ] login & register
