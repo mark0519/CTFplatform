@@ -4,10 +4,10 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
-db = pymysql.connect(host="localhost", user="mark", password="stone", database="ctfdatebase")
-
 
 # # 数据库连接测试
+# # 连接
+# db = pymysql.connect(host="localhost", user="mark", password="stone", database="ctfdatebase")
 # # 使用 cursor() 方法创建一个游标对象 cursor
 # cursor = db.cursor()
 #
@@ -24,14 +24,9 @@ db = pymysql.connect(host="localhost", user="mark", password="stone", database="
 # db.close()
 
 
-
 # def get_db():
 #     if 'db' not in g:
-#         g.db = sqlite3.connect(
-#             current_app.config['DATABASE'],
-#             detect_types=sqlite3.PARSE_DECLTYPES
-#         )
-#         g.db.row_factory = sqlite3.Row
+#         g.db = pymysql.connect(host="localhost", user="mark", password="stone", database="ctfdatebase")
 #
 #     return g.db
 #
