@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "auth/auth_base.html" %}
+{% block content %}
+ <div id="callMe" class="form-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="text-container">
+                        <div class="section-title">Login and enjoy geek time</div>
+                        <h2 class="white">LOGIN</h2>
+                        <p class="white">Just a few simple steps to log in,</p>
+                        <p class="white">And soon you will be able to enjoy playing CTFs.</p>
+                        <p class="white">GL & HF</p>
+                    </div>
+                </div> <!-- end of col -->
+                <div class="col-lg-6">
 
-</body>
-</html>
+                    <!-- Call Me Form -->
+                    <form id="callMeForm" data-toggle="validator" data-focus="false">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="lname" name="lname" required>
+                            <label class="label-control" for="lname">username</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+<!--                        <div class="form-group">-->
+<!--                            <input type="email" class="form-control-input" id="lemail" name="lemail" required>-->
+<!--                            <label class="label-control" for="lemail">Email</label>-->
+<!--                            <div class="help-block with-errors"></div>-->
+<!--                        </div>-->
+
+                        <div class="form-group">
+                            <input type="email" class="form-control-input" id="passwd" name="passwd" required>
+                            <label class="label-control" for="passwd">password</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group checkbox white">
+                            Don't have a CTFx account? <a class="white" href="/auth/register">Click here</a> to register
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control-submit-button">LOGIN</button>
+                        </div>
+                        <div class="form-message">
+                            <div id="lmsgSubmit" class="h3 text-center hidden"></div>
+                        </div>
+                    </form>
+                    <!-- end of call me form -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
+{% endblock %}

@@ -3,10 +3,10 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-bp = Blueprint('home', __name__)
+bp = Blueprint('/auth/register', __name__)
 
 
-@bp.route('/')
+@bp.route('/auth/register')
 def index():
     # db = get_db()
     # posts = db.execute(
@@ -14,4 +14,5 @@ def index():
     #     ' FROM post p JOIN user u ON p.author_id = u.id'
     #     ' ORDER BY created DESC'
     # ).fetchall()
-    return render_template('home/home.html')
+    return render_template('auth/register/register.html')
+

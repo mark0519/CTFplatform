@@ -2187,7 +2187,7 @@ a:hover.back-to-top {
 
 	/* Call Me */
 	.form-1 {
-		padding-top: 7rem;	
+		padding-top: 7rem;
 	}
 
 	.form-1 .text-container {
@@ -2277,13 +2277,20 @@ a:hover.back-to-top {
 	}
 	/* end of navigation */
 
-	
 	/* Header */
 	.header .header-content {
 		padding-top: 14.75rem;
 		padding-bottom: 17.5rem;
 	}
 	/* end of header */
+
+
+	/* Header-auth */
+	.header .header-content-auth {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+	/* end of header-auth */
 
 
 	/* Intro */

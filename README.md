@@ -11,6 +11,7 @@
 - [ ] scoreboard
 - [ ] teams
 - [ ] users
+- [ ] me
 
 ## 启动方式
 ```shell
