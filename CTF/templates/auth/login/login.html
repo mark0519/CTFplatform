@@ -15,21 +15,15 @@
                 <div class="col-lg-6">
 
                     <!-- Call Me Form -->
-                    <form id="callMeForm" data-toggle="validator" data-focus="false">
+                    <form  data-toggle="validator" data-focus="false" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control-input" id="lname" name="lname" required>
-                            <label class="label-control" for="lname">username</label>
-                            <div class="help-block with-errors"></div>
+                                <input type="text" class="form-control-input" id="name" name="name" required>
+                                <label class="label-control" for="name">username or email</label>
+                                <div class="help-block with-errors"></div>
                         </div>
 
-<!--                        <div class="form-group">-->
-<!--                            <input type="email" class="form-control-input" id="lemail" name="lemail" required>-->
-<!--                            <label class="label-control" for="lemail">Email</label>-->
-<!--                            <div class="help-block with-errors"></div>-->
-<!--                        </div>-->
-
                         <div class="form-group">
-                            <input type="email" class="form-control-input" id="passwd" name="passwd" required>
+                            <input type="password" class="form-control-input" id="passwd" name="passwd" required>
                             <label class="label-control" for="passwd">password</label>
                             <div class="help-block with-errors"></div>
                         </div>
@@ -38,11 +32,9 @@
                             Don't have a CTFx account? <a class="white" href="/auth/register">Click here</a> to register
                             <div class="help-block with-errors"></div>
                         </div>
+
                         <div class="form-group">
                             <button type="submit" class="form-control-submit-button">LOGIN</button>
-                        </div>
-                        <div class="form-message">
-                            <div id="lmsgSubmit" class="h3 text-center hidden"></div>
                         </div>
                     </form>
                     <!-- end of call me form -->
