@@ -3,7 +3,7 @@
 import hashlib
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
 from werkzeug.exceptions import abort
 
@@ -30,11 +30,11 @@ def index():
         if '@' in account:
             email = account
             mode = 0
-            print(email)
+            print("Email == "+str(email))
         else:
             username = account
             mode = 1
-            print(username)
+            print("Username == "+str(username))
         print("mode == "+str(mode))
         print("password_md5 == " + password)
         '''
@@ -50,7 +50,12 @@ def index():
         待完善.....
         """
 
-
+        if True: # 如果没有数据异常,数据库填入正确
+            print("code == 1")
+            return jsonify({'code': 1, 'msg': 'pass'})
+        elif False: # 密码错误或者找不到用户account(用户名或密码错误)
+            print('code == 0')
+            return jsonify({'code': 0, 'msg': 'error'})
 
     return render_template('auth/login/login.html')
 
