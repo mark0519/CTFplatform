@@ -2,16 +2,24 @@ import os
 
 from flask import Flask
 
+from flask_sqlalchemy import SQLAlchemy
 from CTF import login, register
 
+db = ""
 
 def create_app(test_config=None):
+    global db
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    # app.config.from_mapping(
-    #     SECRET_KEY='dev',
-    #     DATABASE=os.path.join(app.instance_path, 'CTF.sqlite'),
-    # )
+
+    app.config['SECRET_KEY'] = 'ctfx'
+    # 设置数据库连接url
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mark:stone@localhost:3306/ctf_database'
+    # 设置这一项是每次请求结束后都会自动提交数据库中的变动
+    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+    db = SQLAlchemy(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -26,13 +34,16 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+
     # a simple page that test Flask run
     @app.route('/hello')
     def hello():
         return 'Test Flask run'
 
-    # from . import db
-    # db.init_app(app)
+
+    from . import models
+
+    from . import create_db
 
     from . import auth
     app.register_blueprint(login.bp)
@@ -45,3 +56,7 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
 
     return app
+
+
+
+
