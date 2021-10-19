@@ -40,13 +40,64 @@
                             <label class="label-control" for="passwd_2">password again</label>
                             <div class="help-block with-errors"></div>
                         </div>
-
                         <div class="form-group checkbox white">
                             <input type="checkbox" id="lterms" value="Agreed-to-Terms" name="lterms" required>I agree with CTFx's stated <a class="white" href="privacy-policy.html">Privacy Policy</a> and <a class="white" href="terms-conditions.html">Terms & Conditions</a>
                             <div class="help-block with-errors"></div>
                         </div>
+                        <script>
+                            function postDate_register() {
+                                var password = $("#passwd").val();
+                                var password_2 = $("#passwd_2").val();
+
+                                if(password === password_2) {
+                                    var account = $("#name").val();
+
+                                    if (account.indexOf("@") !== -1) {
+                                        alert("用户名不可以含有'@'字符 ");
+                                        // window.location.href='/auth/register';
+                                    } else {
+                                        if (account.length > 20) {
+                                            alert("用户名不可超过20字符 ");
+                                            // window.location.href='/auth/register';
+                                        }
+                                        else {
+                                            const email = $("#email").val();
+                                            if (email.length > 30) {
+                                                alert("邮箱不可超过30字符 ");
+                                                // window.location.href='/auth/register';
+                                            }
+                                            else {
+                                                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                                                httpRequest.open('POST', location.href = '/auth/register', true); //第二步：打开连接
+                                                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                                                httpRequest.send('name=' + account + '&email=' + email + '&passwd=' + password);//发送请求 将情头体写在send中
+                                                httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+                                                    if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
+                                                        var json = httpRequest.responseText;//获取到服务端返回的数据
+                                                        // alert(json);
+                                                        var obj = JSON.parse(json);
+                                                        if (obj.code === 1) {
+                                                            alert("注册成功")
+                                                            window.location.href = '/auth/login';
+                                                        } else {
+                                                            alert("用户名或密码错误,请重试!");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                else{
+                                    alert("两次密码输入不同!");
+                                }
+                            }
+                        </script>
                         <div class="form-group">
-                            <button type="submit" class="form-control-submit-button">CALL ME</button>
+                            <a onclick="postDate_register()">
+                                <button type="button" class="form-control-submit-button">REGISTER</button>
+                            </a>
                         </div>
                         <div class="form-message">
                             <div id="lmsgSubmit" class="h3 text-center hidden"></div>

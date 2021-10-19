@@ -18,7 +18,7 @@ class user(db.Model):
     is_captain = db.Column(db.Boolean, default=0)
     # user_ans = db.Column(db.json)
 
-    def __init__(self, name, mail,pwd):
+    def __init__(self, name, mail, pwd):
         self.user_name = name
         self.user_mail = mail
         self.user_pwd = pwd
