@@ -3,9 +3,10 @@ import os
 from flask import Flask
 
 from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 from CTF import login, register
 
-db = ""
+
 
 def create_app(test_config=None):
     global db
@@ -34,6 +35,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    
 
     # a simple page that test Flask run
     @app.route('/hello')
@@ -41,9 +43,7 @@ def create_app(test_config=None):
         return 'Test Flask run'
 
 
-    from . import models
-
-    from . import create_db
+    from CTF import models
 
     from . import auth
     app.register_blueprint(login.bp)

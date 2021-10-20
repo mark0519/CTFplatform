@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-=
+from CTF import db
+from CTF.models import user
 
 import hashlib
 
@@ -46,16 +48,23 @@ def index():
         password 是密码的md5值
         '''
 
-        """
-        待完善.....
-        """
-
-        if True: # 如果没有数据异常,数据库填入正确
-            print("code == 1")
-            return jsonify({'code': 1, 'msg': 'pass'})
-        elif False: # 密码错误或者找不到用户account(用户名或密码错误)
-            print('code == 0')
-            return jsonify({'code': 0, 'msg': 'error'})
+        if mode==0: 
+            test = user.query.filter(user.user_mail == email).first()
+            print("*****")
+            if not test or test.user_pwd!=password:
+                print('code == 0')
+                return jsonify({'code': 0, 'msg': 'error'})
+            else:
+                print("code == 1")
+                return jsonify({'code': 1, 'msg': 'pass'})
+        if mode==1:
+            test = user.query.filter(user.user_name == username).first()
+            if not test or test.user_pwd!=password:
+                print('code == 0')
+                return jsonify({'code': 0, 'msg': 'error'})
+            else:
+                print("code == 1")
+                return jsonify({'code': 1, 'msg': 'pass'})
 
     return render_template('auth/login/login.html')
 

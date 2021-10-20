@@ -26,6 +26,7 @@ class user(db.Model):
     user_pwd = db.Column(db.String(255), unique=True, nullable=False)
     user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))
     is_captain = db.Column(db.Boolean, default=0)
+    user_hidden = db.Column(db.Boolean, default=0)
     user_ans=db.relationship('que',
                             secondary=users_ans,
                             backref=db.backref('user',lazy='dynamic'),
@@ -40,8 +41,6 @@ class user(db.Model):
         return '<User %d>' % self.user_id
 
 
-
-
 class team(db.Model):
     __tablename__ = 'team_data'
     team_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -49,6 +48,7 @@ class team(db.Model):
     team_capid = db.Column(db.Integer, default=0)
     team_intro = db.Column(db.Text)
     team_score = db.Column(db.Integer, default=0)
+    team_hidden = db.Column(db.Boolean, default=0)
     team_ans=db.relationship('que',
                             secondary=teams_ans,
                             backref=db.backref('team',lazy='dynamic'),

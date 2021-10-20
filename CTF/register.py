@@ -1,3 +1,6 @@
+from CTF import db
+from CTF.models import user
+
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
@@ -9,12 +12,7 @@ bp = Blueprint('/auth/register', __name__)
 
 @bp.route('/auth/register', methods=['GET', 'POST'])
 def index():
-    # db = get_db()
-    # posts = db.execute(
-    #     'SELECT p.id, title, body, created, author_id, username'
-    #     ' FROM post p JOIN user u ON p.author_id = u.id'
-    #     ' ORDER BY created DESC'
-    # ).fetchall()
+
     if request.method == 'POST':
         username = request.form['name']
         email = request.form['email']
@@ -26,6 +24,8 @@ def index():
         print("username == " + username)
         print("email == " + email)
         print("password_md5 == " + password)
+
+
         '''
         email 是用户的邮箱
         username 是用户名
@@ -36,10 +36,14 @@ def index():
         待完善.....
         """
 
-        if True:  # 如果没有数据异常,数据库填入正确
-            print("code == 1")
+        jg_name = user.query.filter(user.user_name == username).first()
+        
+        if not jg_name:  # 若无重复用户名
+            new_user = user(username,email,password)
+            db.session.add(new_user)
+            db.session.commit()
             return jsonify({'code': 1, 'msg': 'pass'})
-        elif False:  # 密码错误或者找不到用户account(用户名或密码错误)
+        else:  # 若有重复用户名
             print('code == 0')
             return jsonify({'code': 0, 'msg': 'error'})
 
