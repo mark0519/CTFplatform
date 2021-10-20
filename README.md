@@ -3,11 +3,11 @@
 
 ## TodoList
 
-- [ ] home
+- [x] home
 - [ ] about
 - [ ] admin
 - [ ] challenges
-- [ ] login & register
+- [x] login & register
 - [ ] scoreboard
 - [ ] teams
 - [ ] users
