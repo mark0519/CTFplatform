@@ -23,7 +23,7 @@ class user(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     user_name = db.Column(db.String(20), unique=True, nullable=False)
     user_mail = db.Column(db.String(30), unique=True, nullable=False)
-    user_pwd = db.Column(db.String(255), unique=True, nullable=False)
+    user_pwd = db.Column(db.String(255), nullable=False)
     user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))
     is_captain = db.Column(db.Boolean, default=0)
     user_hidden = db.Column(db.Boolean, default=0)

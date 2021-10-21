@@ -14,27 +14,23 @@
                     </div>
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
-
-                    <!-- Call Me Form -->
+                    <!-- Login Form -->
                     <form id="callMeForm" data-toggle="validator" data-focus="false">
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="name" name="name" required>
                             <label class="label-control" for="name">Name</label>
                             <div class="help-block with-errors"></div>
                         </div>
-
                         <div class="form-group">
                             <input type="email" class="form-control-input" id="email" name="email" required>
                             <label class="label-control" for="email">Email</label>
                             <div class="help-block with-errors"></div>
                         </div>
-
                         <div class="form-group">
                             <input type="password" class="form-control-input" id="passwd" name="passwd" required>
                             <label class="label-control" for="passwd">password</label>
                             <div class="help-block with-errors"></div>
                         </div>
-
                         <div class="form-group">
                             <input type="password" class="form-control-input" id="passwd_2" name="passwd_2" required>
                             <label class="label-control" for="passwd_2">password again</label>
@@ -48,10 +44,8 @@
                             function postDate_register() {
                                 var password = $("#passwd").val();
                                 var password_2 = $("#passwd_2").val();
-
                                 if(password === password_2) {
                                     var account = $("#name").val();
-
                                     if (account.indexOf("@") !== -1) {
                                         alert("用户名不可以含有'@'字符 ");
                                         // window.location.href='/auth/register';
@@ -68,16 +62,17 @@
                                             }
                                             else {
                                                 var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
-                                                httpRequest.open('POST', location.href = '/auth/register', true); //第二步：打开连接
+                                                httpRequest.open('POST', location.href = '/auth/register', false); //第二步：打开连接
                                                 httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
                                                 httpRequest.send('name=' + account + '&email=' + email + '&passwd=' + password);//发送请求 将情头体写在send中
-                                                httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
-                                                    if (httpRequest.readyState === 4 && httpRequest.status === 200) {//验证请求是否发送成功
+                                                httpRequest.onreadystatechange = function_register() //请求后的回调接口，可将请求成功后要执行的程序写在其中
+                                                function function_register() {
+                                                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
                                                         var json = httpRequest.responseText;//获取到服务端返回的数据
                                                         // alert(json);
                                                         var obj = JSON.parse(json);
-                                                        if (obj.code === 1) {
-                                                            alert("注册成功")
+                                                        if (obj.code == 1) {
+                                                            alert("注册成功,请登陆")
                                                             window.location.href = '/auth/login';
                                                         } else {
                                                             alert("该用户名已被注册!");
@@ -103,7 +98,7 @@
                             <div id="lmsgSubmit" class="h3 text-center hidden"></div>
                         </div>
                     </form>
-                    <!-- end of call me form -->
+                    <!-- end of Login form -->
 
                 </div> <!-- end of col -->
             </div> <!-- end of row -->

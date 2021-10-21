@@ -19,3 +19,10 @@ set FLASK_APP=CTF
 set FLASK_ENV=development
 flask run
 ```
+
+```shell
+# 每台设备需要运行一次
+flask shell
+from CTF import db
+db.drop_all()
+```

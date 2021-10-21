@@ -37,22 +37,22 @@
                                 var password = $("#passwd").val();
                                 var account = $("#name").val();
                                 var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
-                                httpRequest.open('POST', location.href = '/auth/login', true); //第二步：打开连接
+                                httpRequest.open('POST', location.href = '/auth/login', false); //第二步：打开连接
                                 httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
                                 httpRequest.send('name=' + account + '&passwd=' + password);//发送请求 将情头体写在send中
-                                httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+                                httpRequest.onreadystatechange = function_login ()
+                                function function_login() {
                                     if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
                                         var json = httpRequest.responseText;//获取到服务端返回的数据
-                                        // alert(json);
                                         var obj = JSON.parse(json);
                                         if (obj.code == 1) {
+                                            alert("欢迎回来"+account)
                                             window.location.href='/';
                                         }
                                         else{
                                             alert("用户名或密码错误,请重试!");
                                         }
                                     }
-
                                 }
                             }
                         </script>
