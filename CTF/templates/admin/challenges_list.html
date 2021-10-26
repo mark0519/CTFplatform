@@ -1,0 +1,110 @@
+{% extends "admin/admin_base.html" %}
+{% block content %}
+<div id="projects" class="filter">
+		<div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">Administration</div>
+                    <h2><span style="color: white; ">Welcome Admin User</span></h2>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="button-group filters-button-group">
+                            <a class="button"  href="/admin/new"><span>Add Challenges</span></a>
+                    </div> <!-- end of button group -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+
+		</div> <!-- end of container -->
+
+    </div> <!-- end of filter -->
+
+{% endblock %}
+
+{% block details %}
+<div id="intro" class="basic-1">
+        <div class="container">
+
+
+
+<div>
+<table id="challenges" class="table table-striped border">
+<thead>
+<tr>
+
+<th class="sort-col text-center"><b>ID</b> </th>
+<th class="sort-col"><b>Name</b> </th>
+<th class="d-none d-md-table-cell d-lg-table-cell sort-col"><b>Category</b> </th>
+<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>Value</b> </th>
+
+<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>State</b> </th>
+</tr>
+</thead>
+
+<tbody>
+<tr data-href="/admin/challenges/1">
+<td class="text-center">1</td>
+<td><a href="/admin/challenges/1">challenges_Name</a></td>
+<td class="d-none d-md-table-cell d-lg-table-cell">PWN</td>
+<td class="d-none d-md-table-cell d-lg-table-cell text-center">500</td>
+<td class="d-none d-md-table-cell d-lg-table-cell text-center">
+<!--<span class="badge badge-success">visible</span>-->
+    <span class="badge badge-danger">hidden</span>
+</td>
+</tr>
+
+
+<!--<tr data-href="/admin/challenges/2">-->
+<!--<td class="text-center">2</td>-->
+<!--<td><a href="/admin/challenges/2">Too Many Puppers</a></td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell">Forensics</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">100</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">standard</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
+<!--<span class="badge badge-success">visible</span>-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr data-href="/admin/challenges/3">-->
+
+<!--<td class="text-center">3</td>-->
+<!--<td><a href="/admin/challenges/3">Trivia</a></td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell">Multiple Choice</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">42</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">multiple_choice</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
+<!--<span class="badge badge-success">visible</span>-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr data-href="/admin/challenges/4">-->
+
+<!--<td class="text-center">4</td>-->
+<!--<td><a href="/admin/challenges/4">Reverse a String</a></td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell">Programming</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">100</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">code</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
+<!--<span class="badge badge-success">visible</span>-->
+<!--</td>-->
+<!--</tr>-->
+<!--<tr data-href="/admin/challenges/5">-->
+
+<!--<td class="text-center">5</td>-->
+<!--<td><a href="/admin/challenges/5">The Lost Park</a></td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell">Forensics</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">50</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">standard</td>-->
+<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
+<!--<span class="badge badge-success">visible</span>-->
+<!--</td>-->
+<!--</tr>-->
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+
+    </div>
+{% endblock %}

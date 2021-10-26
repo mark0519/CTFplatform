@@ -3,9 +3,9 @@ import os
 from flask import Flask
 
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
-from CTF import login, register
 
+db = SQLAlchemy()
+from CTF import login, register, terms_conditions, privacy_policy, challenges_list
 
 
 def create_app(test_config=None):
@@ -35,13 +35,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    
-
     # a simple page that test Flask run
     @app.route('/hello')
     def hello():
         return 'Test Flask run'
-
 
     from CTF import models
 
@@ -51,12 +48,17 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(register.bp)
 
+    from . import auth
+    app.register_blueprint(privacy_policy.bp)
+
+    from . import auth
+    app.register_blueprint(terms_conditions.bp)
+
+    from . import admin
+    app.register_blueprint(challenges_list.bp)
+
     from . import home
     app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='index')
 
     return app
-
-
-
-
