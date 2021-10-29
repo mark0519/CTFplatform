@@ -10,7 +10,7 @@
 
 
     <!-- Website Title -->
-    <title>CTFx -- auth</title>
+    <title>CTFx</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -90,7 +90,100 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-container">
-                            {% block content %}{% endblock %}
+                            <div id="contact" class="form-2">
+
+
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-lg-6">
+
+                    <div class="text-container">
+                        <div class="section-title">A good challenges, a new world</div>
+                        <h2>ADD CHALLENGES</h2>
+<!--                        <div class="form-group">-->
+<!--                            <label>Files:</label>-->
+<!--                            <input class="form-control-file" type="file" name="file" multiple="multiple">-->
+<!--                            <div class="help-block with-errors"></div>-->
+<!--                        </div>-->
+                        <form action="http://localhost:5000/admin/new" data-toggle="validator" data-focus="false" method="post" id="new_1">
+                        <div class="form-group">
+                            <textarea class="form-control-textarea" id="cmessage" required></textarea>
+                            <label class="label-control" for="cmessage">Challenge message</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        </form>
+                            <h5>Files:</h5>
+                            <form id ="new_3" action="http://localhost:5000/admin/new" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="file"  />
+                            </form>
+                    </div> <!-- end of text-container -->
+
+                </div> <!-- end of col -->
+                <div class="col-lg-6">
+
+
+                    <!-- Contact Form -->
+                    <form id="new_2" action="http://localhost:5000/admin/new" data-toggle="validator" data-focus="false" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="cname" required>
+                            <label class="label-control" for="cname">Challenges Name</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="category" required>
+                            <label class="label-control" for="category">Category</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="value" required>
+                            <label class="label-control" for="value">Value</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-control-input" id="state" required>
+                            <label class="label-control" for="state">State</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="flag" required>
+                            <label class="label-control" for="flag">flag</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <script>
+                            function postnew(){
+                                   $("#new_1").attr("action","http://localhost:5000/admin/new");
+                                   $("#new_1").attr("method","POST");
+                                   $('#new_1').submit();
+                                   $("#new_2").attr("action","http://localhost:5000/admin/new");
+                                   $("#new_2").attr("method","POST");
+                                   $('#new_2').submit();
+                                   $("#new_3").attr("action","http://localhost:5000/admin/new");
+                                   $("#new_3").attr("method","POST");
+                                   $('#new_3').submit();
+
+                            }
+
+                        </script>
+                        <div class="form-group">
+                            <a onclick="postnew()">
+                                <button type="button" class="form-control-submit-button">ADD</button>
+                            </a>
+                        </div>
+
+<!--                        <div class="form-message">-->
+<!--                            <div id="cmsgSubmit" class="h3 text-center hidden"></div>-->
+<!--                        </div>-->
+                    </form>
+                    <!-- end of contact form -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-2 -->
                         </div>
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
