@@ -386,6 +386,19 @@ input[type='checkbox'] {
 	transition: all 0.2s;
 }
 
+.form-control-submit-button_file {
+	display: inline-block;
+	width: 13%;
+	height: 3rem;
+	border: 0.125rem solid #14bf98;
+	border-radius: 0.25rem;
+	background-color: #14bf98;
+	color: #fff;
+	font: 700 0.75rem/1.75rem "Montserrat", sans-serif;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
 .form-control-submit-button:hover {
 	background-color: transparent;
 	color: #14bf98;

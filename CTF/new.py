@@ -13,24 +13,19 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-
-
 bp = Blueprint('/admin/new', __name__)
 
 
 @bp.route('/admin/new', methods=['GET', 'POST'])
 def challenges_list():
     if request.method == 'POST':
-        file = request.files['file']
-        print(request.files)
-        file.save(os.path.join('upload/', secure_filename(file.filename)))
+        cname = request.form.get('cname')
+        category = request.form.get('category')
+        value = request.form.get('value')
+        state = request.form.get('state')
+        flag = request.form.get('flag')
+        cmessage = request.form.get('cmessage')
 
-        cname = request.form['cname']
-        category = request.form['category']
-        value = request.form['value']
-        state = request.form['state']
-        flag = request.form['flag']
-        cmessage = request.form['cmessage']
 
         '''
         cname 题目名字(字符串)
@@ -42,16 +37,12 @@ def challenges_list():
         id (题目唯一id,从数据库拿出最大的id然后+1赋值给他)
         上传的文件路径都在 CTFplatform/upload/ 目录下
         '''
+        print("cname==>", cname)
+        print("cmessage==>", cmessage)
 
-
-
-        """
-        
-        """
-        if True: # 一切正常
-            return render_template('admin/challenges_list.html')
-        else:
-            return render_template('admin/new.html')
+        # if True:  # 一切正常
+        #     return render_template('admin/challenges_list.html')
+        # else:
+        return render_template('admin/new.html')
     else:
         return render_template('admin/new.html')
-

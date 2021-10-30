@@ -5,7 +5,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-from CTF import login, register, terms_conditions, privacy_policy, challenges_list, new
+from CTF import login, register, terms_conditions, privacy_policy, challenges_list, new, new_file
 
 
 def create_app(test_config=None):
@@ -61,6 +61,9 @@ def create_app(test_config=None):
 
     from . import admin
     app.register_blueprint(new.bp)
+
+    from . import admin
+    app.register_blueprint(new_file.bp)
 
     from . import home
     app.register_blueprint(home.bp)

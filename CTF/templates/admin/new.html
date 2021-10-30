@@ -115,14 +115,13 @@
                         </div>
                         </form>
                             <h5>Files:</h5>
-                            <form id ="new_3" action="http://localhost:5000/admin/new" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="file"  />
+                            <form id ="new_3" action="http://localhost:5000/admin/new_file" method="POST" enctype="multipart/form-data">
+                                <input  type="file" name="file"  />
+                                <button type="submit" class="form-control-submit-button_file" >upload</button>
                             </form>
                     </div> <!-- end of text-container -->
-
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
-
 
                     <!-- Contact Form -->
                     <form id="new_2" action="http://localhost:5000/admin/new" data-toggle="validator" data-focus="false" method="post">
@@ -131,7 +130,6 @@
                             <label class="label-control" for="cname">Challenges Name</label>
                             <div class="help-block with-errors"></div>
                         </div>
-
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="category" required>
                             <label class="label-control" for="category">Category</label>
@@ -154,17 +152,31 @@
                         </div>
 
                         <script>
-                            function postnew(){
-                                   $("#new_1").attr("action","http://localhost:5000/admin/new");
-                                   $("#new_1").attr("method","POST");
-                                   $('#new_1').submit();
-                                   $("#new_2").attr("action","http://localhost:5000/admin/new");
-                                   $("#new_2").attr("method","POST");
-                                   $('#new_2').submit();
-                                   $("#new_3").attr("action","http://localhost:5000/admin/new");
-                                   $("#new_3").attr("method","POST");
-                                   $('#new_3').submit();
-
+                            function postnew() {
+                                // $("#new_3/.m").attr("action", "http://localhost:5000/admin/new");
+                                // $("#new_3").attr("method", "POST");
+                                // $('#new_3').submit();
+                                var cname = $("#cname").val();
+                                var category = $("#category").val();
+                                var value = $("#value").val();
+                                var state = $("#state").val();
+                                var flag = $("#flag").val();
+                                var cmessage = $("#cmessage").val();
+                                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                                httpRequest.open('POST', location.href = '/admin/new', false); //第二步：打开连接
+                                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                                httpRequest.send('cname='+cname+'&category='+category+'&value='+value+'&state='+state+'&flag='+flag+'&cmessage='+cmessage);//发送请求 将情头体写在send中
+                                httpRequest.onreadystatechange = function_new()
+                                function function_new() {
+                                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                                        var json = httpRequest.responseText;//获取到服务端返回的数据
+                                        var obj = JSON.parse(json);
+                                        if (obj.code == 1) {
+                                            alert("添加题目成功")
+                                            window.location.href = '/admin/challenges_list';
+                                        }
+                                    }
+                                }
                             }
 
                         </script>
