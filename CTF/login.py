@@ -43,7 +43,7 @@ def index():
         '''
         if mode == 0:
             test = user.query.filter(user.user_mail == email).first()
-            if not test or test.user_pwd != password:
+            if not test or test.user_pwd != password:   #email不存在或密码不正确
                 print('code == 0')
                 print('[debug] ==> 1')
                 return jsonify({'code': 0, 'msg': 'error'}), 200
@@ -53,7 +53,7 @@ def index():
                 return jsonify({'code': 1, 'msg': 'pass'}), 200
         else:
             test = user.query.filter(user.user_name == username).first()
-            if not test or test.user_pwd != password:
+            if not test or test.user_pwd != password:      #用户名不存在或密码不正确
                 print('code == 0')
                 print('[debug] ==> 3')
                 return jsonify({'code': 0, 'msg': 'error'}), 200

@@ -63,14 +63,19 @@ class que(db.Model):
     __tablename__ = 'que_data'
     que_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     que_name = db.Column(db.String(20), unique=True)
-    que_cate = db.Column(db.String(10), unique=True)
-    que_flag = db.Column(db.String(64), unique=True)
+    que_cate = db.Column(db.String(10))
+    que_flag = db.Column(db.String(64))
     que_intro = db.Column(db.Text)
+    que_hidden = db.Column(db.Boolean, default=0)
     que_address = db.Column(db.Text)
     que_score = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<User %d>' % self.team_id
-
-
-
+    def __init__(self,name,cate,flag,intro,hidden,score):
+        self.que_name=name
+        self.que_cate=cate
+        self.que_flag=flag
+        self.que_intro=intro
+        self.que_hidden=hidden
+        self.que_score=score
