@@ -47,7 +47,7 @@ def index():
                 print('code == 0')
                 print('[debug] ==> 1')
                 return jsonify({'code': 0, 'msg': 'error'}), 200
-            elif test.user_teamid == 1:                 #管理员
+            elif test.user_teamid == 1:                 #管理员入口
                 pass
             else:
                 print("code == 1")
@@ -61,7 +61,7 @@ def index():
                 print('[debug] ==> 3')
                 myself = test
                 return jsonify({'code': 0, 'msg': 'error'}), 200
-            elif test.user_teamid == 1:                 #管理员
+            elif test.user_teamid == 1:                 #管理员入口
                 pass
             else:
                 print("code == 1")

@@ -9,5 +9,5 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def index():
-    name = myself.user_name
+    name = myself.user_name         #用户名信息
     return render_template('home/home.html')
