@@ -40,9 +40,7 @@ def challenges_list():
         print("cname==>", cname)
         print("cmessage==>", cmessage)
 
-        # if True:  # 一切正常
-        #     return render_template('admin/challenges_list.html')
-        # else:
+
         return render_template('admin/new.html')
     else:
         return render_template('admin/new.html')

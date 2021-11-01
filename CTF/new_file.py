@@ -19,7 +19,8 @@ bp = Blueprint('/admin/new_file', __name__)
 @bp.route('/admin/new_file', methods=['POST'])
 def challenges_list():
     if request.method == 'POST':
-        file = request.form.get('file')
+        file = request.files['file']
         print(request.files)
         file.save(os.path.join('upload/', secure_filename(file.filename)))
+        return render_template('admin/challenges_list.html')
 

@@ -42,63 +42,59 @@
 </tr>
 </thead>
 
+    <script>
+        function viewmore(c){
+            alert(
+                "ID:  "+c.id+"\nChallenges Name:  "+c.name+"\nCategory:  "+c.cate+"\nflag:  "+c.flag
+            )
+            // alert(c)
+        }
+    </script>
+    <script>
+        function del(c){
+            var r = confirm("是否要 隐藏/显示 "+"[ID: "+c.id+"  Name: "+c.name+"] 该题?");
+            if (r == true) {
+                var id = c.id;
+                var state = c.state;
+                var new_state;
+                if(state == 1){
+                    new_state = 0;
+                }
+                else{
+                    new_state = 1;
+                }
+                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                httpRequest.open('POST', location.href = '/admin/challenges_list', false); //第二步：打开连接
+                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                httpRequest.send('id=' + id + '&new_state=' + new_state)
+            }
+        }
+    </script>
+
+{% for clist in challenges %}
 <tbody>
 <tr data-href="/admin/challenges/1">
-<td class="text-center">1</td>
-<td><a href="/admin/challenges/1">challenges_Name</a></td>
-<td class="d-none d-md-table-cell d-lg-table-cell">PWN</td>
-<td class="d-none d-md-table-cell d-lg-table-cell text-center">500</td>
+<td class="text-center">{{clist.id}}</td>
+<td>  <a onclick="viewmore( {{clist}} )">
+    <span class="badge badge-primary">
+        {{clist.name}}
+    </span>
+</a></td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{clist.cate}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell text-center">{{clist.value}}</td>
 <td class="d-none d-md-table-cell d-lg-table-cell text-center">
-<!--<span class="badge badge-success">visible</span>-->
-    <span class="badge badge-danger">hidden</span>
+    <a onclick="del({{clist}})">
+    {% if clist.state == 1 %}
+<span class="badge badge-success">visible</span>
+    {% else %}
+<span class="badge badge-danger">hidden</span>
+    {% endif %}
+    </a>
 </td>
 </tr>
-
-
-<!--<tr data-href="/admin/challenges/2">-->
-<!--<td class="text-center">2</td>-->
-<!--<td><a href="/admin/challenges/2">Too Many Puppers</a></td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell">Forensics</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">100</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">standard</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
-<!--<span class="badge badge-success">visible</span>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr data-href="/admin/challenges/3">-->
-
-<!--<td class="text-center">3</td>-->
-<!--<td><a href="/admin/challenges/3">Trivia</a></td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell">Multiple Choice</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">42</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">multiple_choice</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
-<!--<span class="badge badge-success">visible</span>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr data-href="/admin/challenges/4">-->
-
-<!--<td class="text-center">4</td>-->
-<!--<td><a href="/admin/challenges/4">Reverse a String</a></td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell">Programming</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">100</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">code</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
-<!--<span class="badge badge-success">visible</span>-->
-<!--</td>-->
-<!--</tr>-->
-<!--<tr data-href="/admin/challenges/5">-->
-
-<!--<td class="text-center">5</td>-->
-<!--<td><a href="/admin/challenges/5">The Lost Park</a></td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell">Forensics</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">50</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">standard</td>-->
-<!--<td class="d-none d-md-table-cell d-lg-table-cell text-center">-->
-<!--<span class="badge badge-success">visible</span>-->
-<!--</td>-->
-<!--</tr>-->
 </tbody>
+{% endfor %}
+
 </table>
 </div>
 </div>
