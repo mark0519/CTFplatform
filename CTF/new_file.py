@@ -38,4 +38,4 @@ def challenges_list():
         db.session.add(new_que)
         db.session.commit()
 
-    return render_template('admin/challenges_list.html')
+    return redirect('challenges_list')
