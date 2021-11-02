@@ -5,8 +5,8 @@
 
 - [x] home
 - [ ] about
-- [ ] admin
-- [ ] challenges
+- [x] admin
+- [x] challenges
 - [x] login & register
 - [ ] scoreboard
 - [ ] teams
@@ -15,7 +15,5 @@
 
 ## 启动方式
 ```shell
-set FLASK_APP=CTF
-set FLASK_ENV=development
-flask run
+python -m flask run
 ```
