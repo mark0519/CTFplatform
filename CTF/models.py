@@ -62,7 +62,7 @@ class team(db.Model):
 class que(db.Model):
     __tablename__ = 'que_data'
     que_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    que_name = db.Column(db.String(20))
+    que_name = db.Column(db.String(20) , unique=True)
     que_cate = db.Column(db.String(10))
     que_flag = db.Column(db.String(64))
     que_intro = db.Column(db.Text)
