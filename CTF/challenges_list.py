@@ -40,12 +40,22 @@ def challenges_list():
         'flag': "flag{This_is_a_fake_flag}",
     }]
 
+    challenges.append({
+        'id': "1",
+        'name': "q.que_name",
+        'cate': "q.que_cate",
+        'value': "q.que_score",
+        'state': "q.que_hidden",  # 1为隐藏
+        'flag': "q.que_flag",
+    }, )
+
     i = 1 
-    q = None
-    while 1:
+    q = que.query.filter(que.que_id == i).first()
+    while(not q):
         q = que.query.filter(que.que_id == i).first()
-        if not q:
-            break
+        if q.que_hidden == 1:
+            i+=1
+            continue
         """
         database需要的参数如下:
         """
@@ -56,10 +66,7 @@ def challenges_list():
         'value': q.que_score,
         'state': q.que_hidden,    #1为隐藏
         'flag': q.que_flag,
-        })
+        },)
         i += 1
 
-        print(challenges)
-        print(q.que_flag+'*****')
-        print("************")
     return render_template('admin/challenges_list.html', challenges=challenges)

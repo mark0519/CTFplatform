@@ -1,10 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "challenges/challenges_base.html" %}
 
-</body>
-</html>
+{% block challenge %}
+<div id="services" class="cards-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h2>Web</h2>
+
+                    <!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+					<h2>Pwn</h2>
+
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+					<h2>Re</h2>
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+					<h2>Crypto</h2>
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+					<h2>Misc</h2>
+
+					<!-- Card -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Challenges Name</h3>
+                            <p class="price"><span>500</span></p>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                        </div> <!-- end of button-container -->
+                    </div>
+                    <!-- end of card -->
+
+
+
+
+
+
+					<!-- 模态框（Modal） -->
+					<div class="modal fade" id="name" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-body">
+								<div role="tabpanel">
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane fade show active" id="challenge">
+											<h2 class="challenge-name text-center pt-3">
+												Challenges Name
+											</h2>
+											<h3 class="challenge-value text-center">
+												500
+											</h3>
+										<div class="text-center">
+											<p>Challenges Details1</p>
+											<p>Challenges Details2</p>
+											<p>Challenges Details3</p>
+											<p>Challenges Details4</p>
+										</div>
+											<script>
+												function downloadFile(url, fileName) {
+													var x = new XMLHttpRequest();
+													x.open("GET", url, true);
+													x.responseType = 'blob';
+													x.onload=function(e) {
+														var url = window.URL.createObjectURL(x.response)
+														var a = document.createElement('a');
+														a.href = url
+														a.download = fileName;
+														a.click()
+													}
+													x.send();
+												}
+											</script>
+											<div class="row challenge-files text-center pb-3">
+													<div class="col-md-4 col-sm-4 col-xs-12 file-button-wrapper d-block">
+														<a class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate"
+														   onclick="downloadFile(herf='upload/2db2c0f2b85f44f6bbca528647bb8466.jpg','web1.zip')">
+															<small style="color: white">File_Name</small>
+														</a>
+													</div>
+											</div>
+											<div class="row submit-row">
+												<div class="col-md-9 form-group">
+														<input id="challenge-id" class="challenge-id" type="hidden" value="5">
+														<input id="challenge-input" class="challenge-input form-control" type="text" name="answer" placeholder="Flag">
+												</div>
+												<div class="col-md-3 form-group key-submit">
+													<button id="challenge-submit" class="challenge-submit btn btn-md btn-outline-secondary float-right" type="submit">
+														Submit
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div><!-- /.modal -->
+					</div>
+
+
+
+
+
+
+
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of cards-2 -->
+{% endblock %}
