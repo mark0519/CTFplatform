@@ -10,11 +10,11 @@ from flask import (
 from werkzeug.exceptions import abort
 
 bp = Blueprint('/auth/login', __name__)
-
+myself = None
 
 @bp.route('/auth/login', methods=['GET', 'POST'])
 def index():
-    global email, username
+    global email, username , myself
     # 如果接收到数据
     if request.method == 'POST' or request.method == 'PUT':
         account = request.form['name']
@@ -43,20 +43,26 @@ def index():
         '''
         if mode == 0:
             test = user.query.filter(user.user_mail == email).first()
-            if not test or test.user_pwd != password:
+            if not test or test.user_pwd != password:   #email不存在或密码不正确
                 print('code == 0')
                 print('[debug] ==> 1')
                 return jsonify({'code': 0, 'msg': 'error'}), 200
+            elif test.user_teamid == 1:                 #管理员入口
+                pass
             else:
                 print("code == 1")
                 print('[debug] ==> 2')
+                myself = test
                 return jsonify({'code': 1, 'msg': 'pass'}), 200
         else:
             test = user.query.filter(user.user_name == username).first()
-            if not test or test.user_pwd != password:
+            if not test or test.user_pwd != password:      #用户名不存在或密码不正确
                 print('code == 0')
                 print('[debug] ==> 3')
+                myself = test
                 return jsonify({'code': 0, 'msg': 'error'}), 200
+            elif test.user_teamid == 1:                 #管理员入口
+                pass
             else:
                 print("code == 1")
                 print('[debug] ==> 4')

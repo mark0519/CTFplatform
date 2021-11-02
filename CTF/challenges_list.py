@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-=
 from CTF import db
-from CTF.models import user
+from CTF.models import que
 
 import hashlib
 
@@ -22,19 +22,15 @@ def challenges_list():
         把数据库里id=id的题目的state状态改为new_state就行
         就在这个if里面完成数据库state的更改
         """
-
-
-
-
-
+        new = que.query.filter(que.que_id == id).first()
+        new.que_state = new_state
+        db.session.add(new)
+        db.session.commit()
 
     else:
         pass
 
-    database = ""
-    '''
-    上面那行' database = "" '是我方便调试写的,要和数据库数据对接的,需要的参数如下代码:
-    '''
+    
     challenges = [{
         'id': 0,
         'name': "test_challenges",
@@ -44,16 +40,26 @@ def challenges_list():
         'flag': "flag{This_is_a_fake_flag}",
     }]
 
-    for i in database:
+    i = 1 
+    q = None
+    while 1:
+        q = que.query.filter(que.que_id == i).first()
+        if not q:
+            break
         """
         database需要的参数如下:
         """
         challenges.append({
-        'id': i.id,
-        'name': i.name,
-        'cate': i.cate,
-        'value': i.value,
-        'state': i.state,
-        'flag': i.flag,
+        'id': q.que_id,
+        'name': q.que_name,
+        'cate': q.que_cate,
+        'value': q.que_score,
+        'state': q.que_hidden,    #1为隐藏
+        'flag': q.que_flag,
         })
+        i += 1
+
+        print(challenges)
+        print(q.que_flag+'*****')
+        print("************")
     return render_template('admin/challenges_list.html', challenges=challenges)
