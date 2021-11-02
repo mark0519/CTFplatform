@@ -65,6 +65,9 @@ def create_app(test_config=None):
     from . import admin
     app.register_blueprint(new_file.bp)
 
+    from . import challenges
+    app.register_blueprint(challenges.bp)
+
     from . import home
     app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='index')

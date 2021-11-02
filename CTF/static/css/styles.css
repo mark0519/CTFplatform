@@ -1324,10 +1324,17 @@ input[type='checkbox'] {
 /************************/
 /*     12. Projects     */
 /************************/
+
+.filter_s {
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
+}
+
 .filter {
 	padding-top: 9.5rem;
 	padding-bottom: 10rem;
 }
+
 
 .filter .section-title {
 	margin-bottom: 0.5rem;
