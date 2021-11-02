@@ -11,6 +11,8 @@ from CTF import login, register, terms_conditions, privacy_policy, challenges_li
 def create_app(test_config=None):
     global db
     # create and configure the app
+    ALLOWED_EXTENSIONS = set(['rar','7z','zip','tar','tar.gz'])
+
     app = Flask(__name__, instance_relative_config=True)
 
     app.config['UPLOAD_FOLDER'] = 'upload/'
