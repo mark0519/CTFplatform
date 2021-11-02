@@ -8,8 +8,16 @@ from CTF.models import que
 bp = Blueprint('challenges', __name__)
 
 
-@bp.route('/challenges')
+@bp.route('/challenges', methods=['GET', 'POST'])
 def challenges():
+    if request.method == 'POST':
+        id = request.form['id']
+        flag = request.form['flag']
+        print("id==>",id)
+        print("flag==>", flag)
+
+
+
     challenges = [{
         'id': 1,
         'name': "test_challenges",
@@ -34,5 +42,4 @@ def challenges():
         'message': "pwner~ again",
         'file': 'upload/12333334.zip'
     })
-
     return render_template('challenges/challenges.html', challenges=challenges)
