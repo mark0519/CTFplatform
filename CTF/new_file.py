@@ -29,9 +29,9 @@ def challenges_list():
         file = request.files['file']
         print(request.files)
         filename=random_filename(file.filename)
-        file.save(os.path.join('upload/', secure_filename(filename)))
+        file.save(os.path.join('CTF/upload/', secure_filename(filename)))
 
-        path = 'CTFplatform/CTF/upload/'+str(filename)
+        path = 'upload/'+str(filename)
         print(new.new_que_id)
         new_que = que.query.filter(que.que_id == new.new_que_id).first()
         new_que.que_address=path
