@@ -6,138 +6,99 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <h2>Web</h2>
 
+                    <h2>Web</h2>
+                    {% for cha in challenges %}
+                    {% if cha.cate=="Web" %}
                     <!-- Card -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
+                            <h3 class="card-title">{{cha.name}}</h3>
+                            <p class="price"><span>{{cha.value}}</span></p>
                         </div>
                         <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
                     </div>
                     <!-- end of card -->
+                    {% endif %}
+                    {% endfor %}
 
-
-					<!-- Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
-                        </div>
-                        <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
-                        </div> <!-- end of button-container -->
-                    </div>
-                    <!-- end of card -->
-
-					<!-- Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
-                        </div>
-                        <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
-                        </div> <!-- end of button-container -->
-                    </div>
-                    <!-- end of card -->
-
-
-					<!-- Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
-                        </div>
-                        <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
-                        </div> <!-- end of button-container -->
-                    </div>
-                    <!-- end of card -->
-
-
-
-					<!-- Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
-                        </div>
-                        <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
-                        </div> <!-- end of button-container -->
-                    </div>
-                    <!-- end of card -->
 
 
 					<h2>Pwn</h2>
-
-
-					<!-- Card -->
+                    {% for cha in challenges %}
+                    {% if cha.cate=="Pwn" %}
+                    <!-- Card -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
+                            <h3 class="card-title">{{cha.name}}</h3>
+                            <p class="price"><span>{{cha.value}}</span></p>
                         </div>
                         <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
                     </div>
                     <!-- end of card -->
-
-					<h2>Re</h2>
-
-					<!-- Card -->
+                    {% endif %}
+                    {% endfor %}
+                    <h2>Re</h2>
+                    {% for cha in challenges %}
+                    {% if cha.cate=="Re" %}
+                    <!-- Card -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
+                            <h3 class="card-title">{{cha.name}}</h3>
+                            <p class="price"><span>{{cha.value}}</span></p>
                         </div>
                         <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
                     </div>
                     <!-- end of card -->
+                    {% endif %}
+                    {% endfor %}
 
 					<h2>Crypto</h2>
-
-					<!-- Card -->
+                    {% for cha in challenges %}
+                    {% if cha.cate=="Crypto" %}
+                    <!-- Card -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
+                            <h3 class="card-title">{{cha.name}}</h3>
+                            <p class="price"><span>{{cha.value}}</span></p>
                         </div>
                         <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
                     </div>
                     <!-- end of card -->
-
+                    {% endif %}
+                    {% endfor %}
 
 					<h2>Misc</h2>
-
-					<!-- Card -->
+                    {% for cha in challenges %}
+                    {% if cha.cate=="Misc" %}
+                    <!-- Card -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Challenges Name</h3>
-                            <p class="price"><span>500</span></p>
+                            <h3 class="card-title">{{cha.name}}</h3>
+                            <p class="price"><span>{{cha.value}}</span></p>
                         </div>
                         <div class="button-container">
-                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#name" href="#name">DETAILS</a>
+                            <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
                     </div>
                     <!-- end of card -->
+                    {% endif %}
+                    {% endfor %}
 
 
 
 
-
-
-					<!-- 模态框（Modal） -->
-					<div class="modal fade" id="name" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    {% for cha in challenges %}
+                    <!-- 模态框（Modal） -->
+					<div class="modal fade" id="{{cha.name}}" tabindex="-1" role="dialog" aria-labelledby="{{cha.name}}" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 							<div class="modal-body">
@@ -145,16 +106,13 @@
 									<div class="tab-content">
 										<div role="tabpanel" class="tab-pane fade show active" id="challenge">
 											<h2 class="challenge-name text-center pt-3">
-												Challenges Name
+												{{cha.name}}
 											</h2>
 											<h3 class="challenge-value text-center">
-												500
+												{{cha.value}}
 											</h3>
 										<div class="text-center">
-											<p>Challenges Details1</p>
-											<p>Challenges Details2</p>
-											<p>Challenges Details3</p>
-											<p>Challenges Details4</p>
+											<p>{{cha.message}}</p>
 										</div>
 											<script>
 												function downloadFile(url, fileName) {
@@ -174,34 +132,61 @@
 											<div class="row challenge-files text-center pb-3">
 													<div class="col-md-4 col-sm-4 col-xs-12 file-button-wrapper d-block">
 														<a class="btn btn-info btn-file mb-1 d-inline-block px-2 w-100 text-truncate"
-														   onclick="downloadFile(herf='upload/2db2c0f2b85f44f6bbca528647bb8466.jpg','web1.zip')">
-															<small style="color: white">File_Name</small>
+														   onclick="downloadFile(herf='{{cha.file}}' ,'{{cha.name}}.zip')">
+															<small style="color: white">{{cha.name}}</small>
 														</a>
 													</div>
 											</div>
+                                            <form id="{{cha.name}}" action="http://127.0.0.1:5000/challenges" method="POST">
 											<div class="row submit-row">
+
+
 												<div class="col-md-9 form-group">
-														<input id="challenge-id" class="challenge-id" type="hidden" value="5">
-														<input id="challenge-input" class="challenge-input form-control" type="text" name="answer" placeholder="Flag">
-												</div>
+<!--														<input id={{cha.id}} class="challenge-id" type="hidden" value={{cha.id}}>-->
+														<input id="{{cha.name}}" class="challenge-input form-control" type="text" name={{cha.name}} placeholder="Flag">
+                                                        <script>
+                                                            function postFlag{{cha.name}}(){
+                                                                var cid = {{cha.id}};
+                                                                var flag =  $("input[id='{{cha.name}}']").val();
+                                                                // var flag = $("#{{cha.name}}").val();
+                                                                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                                                                httpRequest.open('POST', location.href = '/challenges', false); //第二步：打开连接
+                                                                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                                                                httpRequest.send('id=' + cid + '&flag=' + flag);//发送请求 将情头体写在send中
+                                                                httpRequest.onreadystatechange = post_flag_re ()
+                                                                function post_flag_re() {
+                                                                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                                                                        var json = httpRequest.responseText;//获取到服务端返回的数据
+                                                                        var obj = JSON.parse(json);
+                                                                        if (obj.code == 1) {
+                                                                            alert(" 回答正确! ");
+                                                                            window.location.href = '/challenges';
+                                                                        }
+                                                                        else{
+                                                                            alert("flag 错误! ");
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </script>
+                                                </div>
+
 												<div class="col-md-3 form-group key-submit">
-													<button id="challenge-submit" class="challenge-submit btn btn-md btn-outline-secondary float-right" type="submit">
+
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="postFlag{{cha.name}}()">
 														Submit
 													</button>
 												</div>
 											</div>
+                                            </form>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						    </div>
 						</div><!-- /.modal -->
 					</div>
-
-
-
-
-
+                    {% endfor %}
 
 
 

@@ -59,13 +59,13 @@ def index():
             if not test or test.user_pwd != password:      #用户名不存在或密码不正确
                 print('code == 0')
                 print('[debug] ==> 3')
-                myself = test
                 return jsonify({'code': 0, 'msg': 'error'}), 200
             elif test.user_teamid == 1:                 #管理员入口
                 pass
             else:
                 print("code == 1")
                 print('[debug] ==> 4')
+                myself = test
                 return jsonify({'code': 1, 'msg': 'pass'}), 200
 
     return render_template('auth/login/login.html')

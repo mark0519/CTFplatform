@@ -43,6 +43,7 @@ def challenges_list():
         print("cmessage==>", cmessage)
 
         new_que = que(cname,category,flag,cmessage,state,value)
+        new_que.que_nowscore=value
         db.session.add(new_que)
         db.session.commit()
         new_que_id = que.query.filter(que.que_name == cname).first().que_id

@@ -53,7 +53,7 @@ def challenges_list():
         'id': q.que_id,
         'name': q.que_name,
         'cate': q.que_cate,
-        'value': q.que_score,
+        'value': q.que_nowscore,
         'state': q.que_state,    #1为显示
         'flag': q.que_flag,
         })

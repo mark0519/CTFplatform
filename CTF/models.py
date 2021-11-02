@@ -27,10 +27,12 @@ class user(db.Model):
     user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))
     is_captain = db.Column(db.Boolean, default=0)
     user_state = db.Column(db.Boolean, default=1)
+    user_score = db.Column(db.Integer, default=0)
     user_ans=db.relationship('que',
                             secondary=users_ans,
                             backref=db.backref('user',lazy='dynamic'),
                             lazy='dynamic')
+
 
     def __init__(self, name, mail,pwd):
         self.user_name = name
@@ -69,6 +71,7 @@ class que(db.Model):
     que_state = db.Column(db.Boolean, default=1)
     que_address = db.Column(db.Text)
     que_score = db.Column(db.Integer, default=0)
+    que_nowscore = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<Question %d>' % self.que_id
