@@ -54,7 +54,7 @@ def challenges_list():
         'name': q.que_name,
         'cate': q.que_cate,
         'value': q.que_score,
-        'state': q.que_state,    #1为隐藏
+        'state': q.que_state,    #1为显示
         'flag': q.que_flag,
         })
         i += 1
