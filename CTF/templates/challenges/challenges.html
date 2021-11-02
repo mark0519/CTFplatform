@@ -134,17 +134,42 @@
 														</a>
 													</div>
 											</div>
+                                            <form id="{{cha.id}}" action="http://127.0.0.1:5000/challenges" method="POST">
 											<div class="row submit-row">
 												<div class="col-md-9 form-group">
-														<input id="challenge-id" class="challenge-id" type="hidden" value={{cha.id}}>
-														<input id="challenge-input" class="challenge-input form-control" type="text" name="answer" placeholder="Flag">
+														<input id="cid" class="challenge-id" type="hidden" value={{cha.id}}>
+														<input id="flag" class="challenge-input form-control" type="text" name="flag" placeholder="Flag">
 												</div>
+                                                <script>
+                                                    function postFlag(){
+                                                        var cid = $("#cid").val();
+                                                        var flag = $("#flag").val();
+                                                        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                                                        httpRequest.open('POST', location.href = '/challenges', false); //第二步：打开连接
+                                                        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                                                        httpRequest.send('id=' + cid + '&flag=' + flag);//发送请求 将情头体写在send中
+                                                        httpRequest.onreadystatechange = post_flag_re ()
+                                                        function post_flag_re() {
+                                                            if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                                                                var json = httpRequest.responseText;//获取到服务端返回的数据
+                                                                var obj = JSON.parse(json);
+                                                                if (obj.code == 1) {
+                                                                    alert(" 回答正确! ")
+                                                                }
+                                                                else{
+                                                                    alert("flag 错误! ");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </script>
 												<div class="col-md-3 form-group key-submit">
-													<button id="challenge-submit" class="challenge-submit btn btn-md btn-outline-secondary float-right" type="submit">
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="postFlag()">
 														Submit
 													</button>
 												</div>
 											</div>
+                                            </form>
 										</div>
 									</div>
 								</div>
