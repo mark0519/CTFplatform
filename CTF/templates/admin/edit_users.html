@@ -1,0 +1,153 @@
+{% extends "admin/edit_base.html" %}
+
+{% block title %}
+<h2><span style="color: white; ">Edit Users</span></h2>
+{% endblock %}
+
+{% block base %}
+<div id="intro" class="basic-1">
+        <div class="container">
+
+<div>
+<table id="challenges" class="table table-striped border">
+<thead>
+<tr>
+
+<th class="sort-col text-center"><b>ID</b> </th>
+<th class="sort-col"><b>Username</b> </th>
+<th class="d-none d-md-table-cell d-lg-table-cell "><b>Score</b> </th>
+<th class="d-none d-md-table-cell d-lg-table-cell  text-center"><b>State</b> </th>
+
+</tr>
+</thead>
+    <script>
+        function cal(){
+            window.location.href='/admin/edit_users';
+        }
+    </script>
+
+{% for u in users %}
+<tbody>
+<tr>
+<td class="text-center">{{u.id}}</td>
+<td><a class="badge badge-primary" data-toggle="modal" data-target="#user{{u.id}}" href="#user{{u.id}}">
+    {{u.name}}
+</a></td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{u.score}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell text-center">
+    {% if u.state == 1 %}
+<span class="badge badge-success">visible</span>
+    {% else %}
+<span class="badge badge-danger">hidden</span>
+    {% endif %}
+</td>
+</tr>
+</tbody>
+
+
+                            <!-- 模态框（Modal） -->
+					<div class="modal fade" id="user{{u.id}}" tabindex="-1" role="dialog" aria-labelledby="user{{u.id}}" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-body">
+								<div role="tabpanel">
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane fade show active" id="challenge">
+											<h2 class="challenge-name text-center pt-3">
+												Edit User[{{u.id}}]
+											</h2>
+										<div class="text-center">
+
+					<!-- Contact Form -->
+                    <form id="edit_2_{{u.id}}" data-toggle="validator" data-focus="false" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="name{{u.id}}" value="{{u.name}}" required>
+                            <label class="label-control" for="name{{u.id}}">Name</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="score{{u.id}}" value="{{u.score}}" required>
+                            <label class="label-control" for="score{{u.id}}">Score</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                         <div class="form-group">
+<!--                            <input type="text" class="form-control-input" id="state" required>-->
+<!--                            <label class="label-control" for="state">state</label>-->
+                            <select class="form-control-input" id="state{{u.id}}" value="{{u.state}}">
+                              <option type="number"  value = 1>Visible</option>
+                              <option type="number"  value = 0>Hidden</option>
+                            </select>
+<!--                            <div class="help-block with-errors"></div>-->
+                        </div>
+
+                        <script>
+                            function edit_users{{u.id}}() {
+								var a = confirm("确定修改该用户信息?")
+								if (a == true){
+									var name = $("#name{{u.id}}").val();
+									var score = $("#score{{u.id}}").val();
+									var state = $("#state{{u.id}}").val();
+
+									var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+									httpRequest.open('POST', location.href = '/admin/edit_users', false); //第二步：打开连接
+									httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+									httpRequest.send('id='+{{u.id}}+'&name=' + name + '&score=' + score + '&state=' + state);//发送请求 将情头体写在send中
+									httpRequest.onreadystatechange = edit_users_re()
+									function edit_users_re() {
+										if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+											var json = httpRequest.responseText;//获取到服务端返回的数据
+											var obj = JSON.parse(json);
+											if (obj.code == 0) {
+												alert("用户名重复")
+												window.location.href='/admin/edit_users';
+											}
+										}
+                                	}
+								}
+							}
+                        </script>
+                    <!-- end of contact form -->
+											<div class="row submit-row">
+
+												<div class="col-md-3 form-group key-submit">
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="edit_users{{u.id}}()">
+														Submit
+													</button>
+												</div>
+												<div class="col-md-3 form-group key-submit">
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="cal()">
+														Cancel
+													</button>
+												</div>
+
+											</div>
+											</form>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						    </div>
+						</div><!-- /.modal -->
+					</div>
+
+
+
+
+
+
+
+{% endfor %}
+
+</table>
+</div>
+</div>
+
+
+
+    </div>
+
+{% endblock %}
