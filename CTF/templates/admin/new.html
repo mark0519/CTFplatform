@@ -135,8 +135,15 @@
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control-input" id="category" required>
-                            <label class="label-control" for="category">Category</label>
+<!--                            <input type="text" class="form-control-input" id="category" required>-->
+                            <select class="form-control-input" id="category">
+                              <option type="text"  value="Web">Web</option>
+                              <option type="text"  value="Pwn">Pwn</option>
+                              <option type="text"  value="Re">Re</option>
+                              <option type="text"  value="Misc">Misc</option>
+                              <option type="text"  value="Crypto">Crypto</option>
+                            </select>
+<!--                            <label class="label-control" for="category">Category</label>-->
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
@@ -145,9 +152,13 @@
                             <div class="help-block with-errors"></div>
                         </div>
                          <div class="form-group">
-                            <input type="text" class="form-control-input" id="state" required>
-                            <label class="label-control" for="state">State</label>
-                            <div class="help-block with-errors"></div>
+<!--                            <input type="text" class="form-control-input" id="state" required>-->
+<!--                            <label class="label-control" for="state">state</label>-->
+                            <select class="form-control-input" id="state">
+                              <option type="number"  value = 1>Visible</option>
+                              <option type="number"  value = 0>Hidden</option>
+                            </select>
+<!--                            <div class="help-block with-errors"></div>-->
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="flag" required>
@@ -157,9 +168,6 @@
 
                         <script>
                             function postnew() {
-                                // $("#new_3").attr("action", "http://localhost:5000/admin/new");
-                                // $("#new_3").attr("method", "POST");
-                                // $('#new_3').submit();
                                 var cname = $("#cname").val();
                                 var category = $("#category").val();
                                 var value = $("#value").val();
@@ -173,6 +181,21 @@
                                 $("#new_3").attr("action", "http://localhost:5000/admin/new_file");
                                 $("#new_3").attr("method", "POST");
                                 $('#new_3').submit();
+                                httpRequest.onreadystatechange =  postnew_re()
+									function  postnew_re() {
+										if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+											var json = httpRequest.responseText;//获取到服务端返回的数据
+											var obj = JSON.parse(json);
+											if (obj.code == 0) {
+												alert("文件名重复,上传失败")
+												window.location.href='/admin/new';
+											}
+                                            else if (obj.code == -1) {
+												alert("文件格式错误,请上传zip,rar,tar.gz等压缩包各式!")
+												window.location.href='/admin/new';
+											}
+										}
+                                	}
                             }
 
                         </script>

@@ -16,6 +16,8 @@ myself = None
 def index():
     global email, username , myself
     # 如果接收到数据
+    if myself:
+        return redirect('../../')
     if request.method == 'POST' or request.method == 'PUT':
         account = request.form['name']
         password = request.form['passwd']
@@ -24,11 +26,11 @@ def index():
         password = md5.hexdigest()
 
         if '@' in account:
-            email = account
+            email = str(account)
             mode = 0
             print("Email == " + str(email))
         else:
-            username = account
+            username = str(account)
             mode = 1
             print("Username == " + str(username))
         print("mode == " + str(mode))
@@ -47,8 +49,6 @@ def index():
                 print('code == 0')
                 print('[debug] ==> 1')
                 return jsonify({'code': 0, 'msg': 'error'}), 200
-            elif test.user_teamid == 1:                 #管理员入口
-                pass
             else:
                 print("code == 1")
                 print('[debug] ==> 2')
@@ -60,8 +60,6 @@ def index():
                 print('code == 0')
                 print('[debug] ==> 3')
                 return jsonify({'code': 0, 'msg': 'error'}), 200
-            elif test.user_teamid == 1:                 #管理员入口
-                pass
             else:
                 print("code == 1")
                 print('[debug] ==> 4')

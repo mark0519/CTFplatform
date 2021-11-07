@@ -13,6 +13,12 @@
                     <div class="button-group filters-button-group">
                             <a class="button"  href="/admin/new"><span>Add Challenges</span></a>
                     </div> <!-- end of button group -->
+                    <div class="button-group filters-button-group">
+                            <a class="button"  href="/admin/edit_users"><span>  Edit   Users  </span></a>
+                    </div> <!-- end of button group -->
+                    <div class="button-group filters-button-group">
+                            <a class="button"  href="/admin/edit_teams"><span> Edit   Teams </span></a>
+                    </div> <!-- end of button group -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
 
@@ -25,8 +31,6 @@
 {% block details %}
 <div id="intro" class="basic-1">
         <div class="container">
-
-
 
 <div>
 <table id="challenges" class="table table-striped border">
@@ -41,64 +45,152 @@
 <th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>State</b> </th>
 </tr>
 </thead>
+    <script>
+        function ca(){
+		    window.location.href='/';
+		}
+    </script>
 
-    <script>
-        function viewmore(c){
-            alert(
-                "ID:  "+c.id+"\nChallenges Name:  "+c.name+"\nCategory:  "+c.cate+"\nflag:  "+c.flag
-            )
-            // alert(c)
-        }
-    </script>
-    <script>
-        function del(c){
-            var r = confirm("是否要 隐藏/显示 "+"[ID: "+c.id+"  Name: "+c.name+"] 该题?");
-            if (r == true) {
-                var id = c.id;
-                var state = c.state;
-                var new_state;
-                if(state == 1){
-                    new_state = 0;
-                }
-                else{
-                    new_state = 1;
-                }
-                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
-                httpRequest.open('POST', location.href = '/admin/challenges_list', false); //第二步：打开连接
-                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
-                httpRequest.send('id=' + id + '&new_state=' + new_state)
-            }
-        }
-    </script>
+
 
 {% for clist in challenges %}
 <tbody>
 <tr data-href="/admin/challenges/1">
 <td class="text-center">{{clist.id}}</td>
-<td>  <a onclick="viewmore( {{clist}} )">
-    <span class="badge badge-primary">
-        {{clist.name}}
-    </span>
+<td><a class="badge badge-primary" data-toggle="modal" data-target="#{{clist.name}}" href="#{{clist.name}}">
+    {{clist.name}}
 </a></td>
 <td class="d-none d-md-table-cell d-lg-table-cell">{{clist.cate}}</td>
 <td class="d-none d-md-table-cell d-lg-table-cell text-center">{{clist.value}}</td>
 <td class="d-none d-md-table-cell d-lg-table-cell text-center">
-    <a onclick="del({{clist}})">
-    {% if clist.state == 0 %}
+    {% if clist.state == 1 %}
 <span class="badge badge-success">visible</span>
     {% else %}
 <span class="badge badge-danger">hidden</span>
     {% endif %}
-    </a>
 </td>
 </tr>
 </tbody>
+
+
+                        <!-- 模态框（Modal） -->
+					<div class="modal fade" id="{{clist.name}}" tabindex="-1" role="dialog" aria-labelledby="{{clist.name}}" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-body">
+								<div role="tabpanel">
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane fade show active" id="challenge">
+											<h2 class="challenge-name text-center pt-3">
+												Edit Challenges[{{clist.id}}]
+											</h2>
+										<div class="text-center">
+
+					<!-- Contact Form -->
+                    <form id="edit_2{{clist.id}}" data-toggle="validator" data-focus="false" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="cname{{clist.id}}" value="{{clist.name}}" required>
+                            <label class="label-control" for="cname{{clist.id}}">Name</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+						<div class="form-group">
+							<textarea class="form-control-input" id="cmessage{{clist.id}}" >{{clist.message}}</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group">
+<!--                            <input type="text" class="form-control-input" id="category" required>-->
+                            <select class="form-control-input" id="category{{clist.id}}" value="{{clist.cate}}">
+                              <option type="text"  value="Web">Web</option>
+                              <option type="text"  value="Pwn">Pwn</option>
+                              <option type="text"  value="Re">Re</option>
+                              <option type="text"  value="Misc">Misc</option>
+                              <option type="text"  value="Crypto">Crypto</option>
+                            </select>
+<!--                            <label class="label-control" for="category">Category</label>-->
+                            <div class="help-block with-errors"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="value{{clist.id}}" value="{{clist.value}}" required>
+                            <label class="label-control" for="value{{clist.id}}">Value</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                         <div class="form-group">
+<!--                            <input type="text" class="form-control-input" id="state" required>-->
+<!--                            <label class="label-control" for="state">state</label>-->
+                            <select class="form-control-input" id="state{{clist.id}}" value="{{clist.state}}">
+                              <option type="number"  value = 1>Visible</option>
+                              <option type="number"  value = 0>Hidden</option>
+                            </select>
+<!--                            <div class="help-block with-errors"></div>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="flag{{clist.id}}" value="{{clist.flag}}" required>
+                            <label class="label-control" for="flag{{clist.id}}">flag</label>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <script>
+                            function edit_c{{clist.id}}() {
+								var a = confirm("确定修改题目?")
+								if (a == true){
+									var cname = $("#cname{{clist.id}}").val();
+									var category = $("#category{{clist.id}}").val();
+									var value = $("#value{{clist.id}}").val();
+									var state = $("#state{{clist.id}}").val();
+									var flag = $("#flag{{clist.id}}").val();
+									var cmessage = $("#cmessage{{clist.id}}").val();
+									var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+									httpRequest.open('POST', location.href = '/admin/challenges_list', false); //第二步：打开连接
+									httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+									httpRequest.send('id='+{{clist.id}}+'&cname=' + cname + '&category=' + category + '&value=' + value + '&state=' + state + '&flag=' + flag + '&cmessage=' + cmessage);//发送请求 将情头体写在send中
+								    httpRequest.onreadystatechange = edit_c_re()
+									function edit_c_re() {
+										if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+											var json = httpRequest.responseText;//获取到服务端返回的数据
+											var obj = JSON.parse(json);
+											if (obj.code == 0) {
+												alert("题目信息重复")
+												window.location.href='/admin/challenges_list';
+											}
+										}
+                                	}
+                                }
+							}
+                        </script>
+                    <!-- end of contact form -->
+											<div class="row submit-row">
+
+												<div class="col-md-3 form-group key-submit">
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="edit_c{{clist.id}}()">
+														Submit
+													</button>
+												</div>
+												<div class="col-md-3 form-group key-submit">
+													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="ca()">
+														Cancel
+													</button>
+												</div>
+
+											</div>
+											</form>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						    </div>
+						</div><!-- /.modal -->
+					</div>
+
+
+
 {% endfor %}
 
 </table>
 </div>
 </div>
-
 
 
 

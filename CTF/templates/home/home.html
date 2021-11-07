@@ -52,14 +52,16 @@
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
+                {% if is_admin == 1 %}
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="/admin/challenges_list">Admin(临时)</a>
+                    <a class="nav-link page-scroll" href="/admin/challenges_list">Admin</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="/uers">Uers</a>
+                    <a class="nav-link page-scroll" href="/users">Uers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="/teams">Teams</a>

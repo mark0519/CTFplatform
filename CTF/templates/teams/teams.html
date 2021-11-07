@@ -1,10 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "teams/teams_base.html" %}
 
-</body>
-</html>
+{% block titles %}
+<div class="section-title">Teams</div>
+<h2><span style="color: white; ">Choose to create or join a team !</span></h2>
+{% endblock %}
+
+
+{% block buttons %}
+{% if teams %}
+ <div class="button-container">
+    <a class="btn-solid-reg page-scroll"  href="/my_teams">My Teams</a>
+ </div> <!-- end of button-container -->
+{% else %}
+ <div class="button-container">
+    <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#create_teams" href="#create_teams">Create Teams</a>
+ </div> <!-- end of button-container -->
+<!-- 模态框（Modal） -->
+					<div class="modal fade" id="create_teams" tabindex="-1" role="dialog" aria-labelledby="create_teams" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-body">
+								<div role="tabpanel">
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane fade show active" id="editpwd_id">
+											<h2 class="challenge-name text-center pt-3">
+												Create Team
+											</h2>
+
+
+
+                                                    <div class="text-center">
+                                                        <p>Plz input your Team name </p>
+														<p>Once the team name is determined, it cannot be changed</p>
+                                                    </div>
+														<input id="tname" class="challenge-input form-control" type="text" name=tname >
+                                                    <div class="text-center">
+                                                        <p>And your Team description</p>
+                                                    </div>
+														<input id="tmessage" class="challenge-input form-control" type="text" name=tmessage >
+
+                                                    <script>
+                                                            function create_teams(){
+                                                                var tname =  $("input[id='tname']").val();
+                                                                var tmessage = $("input[id='tmessage']").val();
+
+                                                                var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                                                                httpRequest.open('POST', location.href = '/teams', false); //第二步：打开连接
+                                                                httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+                                                                // alert(tmesaage)
+                                                                httpRequest.send('tname=' + tname + '&tmessage=' + tmessage);//发送请求 将情头体写在send中
+
+                                                                httpRequest.onreadystatechange = create_teams_re()
+                                                                function create_teams_re() {
+                                                                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                                                                        var json = httpRequest.responseText;//获取到服务端返回的数据
+                                                                        var obj = JSON.parse(json);
+                                                                        if (obj.code == 0) {
+                                                                            alert(" 创建失败 ");
+                                                                            window.location.href = '/teams' ;
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                            }
+                                                        </script>
+                                                    <br>
+                                                    <br>
+
+                                                    <div class="form-group">
+													<button class="form-control-submit-button" type="button" onclick="create_teams()">
+														Create Team
+													</button>
+												    </div>
+
+
+
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+						    </div>
+						</div><!-- /.modal -->
+					</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block teams %}
+
+<div id="intro" class="basic-1">
+        <div class="container">
+
+<div>
+<table id="teams" class="table table-striped border">
+<thead>
+<tr>
+
+<th class="sort-col text-center"><b>ID</b> </th>
+<th class="sort-col"><b>Team Name</b> </th>
+<th class="sort-col"><b>Team Captain</b> </th>
+<th class="sort-col"><b>Score</b> </th>
+<th class="sort-col"><b>Number</b> </th>
+<th class="sort-col"><b>Apply</b> </th>
+</tr>
+</thead>
+
+	<script>
+		function jointeam(id,name){
+			var b = confirm("确认加入战队 ["+id+"] "+name+" ?");
+			if(b == true){
+				var tid = id;
+				var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+				httpRequest.open('POST', location.href = '/join_teams', false); //第二步：打开连接
+				httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+				httpRequest.send('tid=' + tid);//发送请求 将情头体写在send中
+				httpRequest.onreadystatechange = jointeam_re ()
+				function jointeam_re() {
+					if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+						var json = httpRequest.responseText;//获取到服务端返回的数据
+						var obj = JSON.parse(json);
+						if (obj.code == 0) {
+							alert("申请失败");
+							window.location.href = '/teams';
+						}
+						else{
+							alert("申请成功");
+							window.location.href = '/teams';
+						}
+					}
+				}
+			}
+			else{
+				window.location.href="/teams"
+			}
+		}
+	</script>
+
+{% for t in allteams %}
+<tbody>
+<tr>
+<td class="text-center">{{t.id}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.name}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.captain}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.score}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.sum}}</td>
+<td>
+	<button class="badge badge-primary" onclick="jointeam({{t.id}},'{{t.name}}')" > Join </button>
+</td>
+</tr>
+</tbody>
+
+{% endfor %}
+
+</table>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

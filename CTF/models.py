@@ -15,7 +15,7 @@ teams_ans=db.Table('teams_ans',
 
 users_ans = db.Table('users_ans',
     db.Column('user_id',db.Integer,db.ForeignKey('user_data.user_id')),
-    db.Column('que_id',db.Integer,db.ForeignKey('que_data.que_id'))
+    db.Column('que_id',db.Integer,db.ForeignKey('que_data.que_id')),
 )
 
 class user(db.Model):
@@ -25,8 +25,8 @@ class user(db.Model):
     user_mail = db.Column(db.String(30), unique=True, nullable=False)
     user_pwd = db.Column(db.String(255), nullable=False)
     user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))
-    is_captain = db.Column(db.Boolean, default=0)
-    user_state = db.Column(db.Boolean, default=1)
+    is_captain = db.Column(db.Integer, default=0)
+    user_state = db.Column(db.Integer, default=1)
     user_score = db.Column(db.Integer, default=0)
     user_ans=db.relationship('que',
                             secondary=users_ans,
@@ -34,10 +34,14 @@ class user(db.Model):
                             lazy='dynamic')
 
 
-    def __init__(self, name, mail,pwd):
+    def __init__(self, name, mail,pwd,team_id,is_captain,user_state,user_score):
         self.user_name = name
         self.user_mail = mail
         self.user_pwd = pwd
+        self.user_teamid = team_id
+        self.is_captain = is_captain
+        self.user_state=user_state
+        self.user_score = user_score
 
     def __repr__(self):
         return '<User %d>' % self.user_id
@@ -50,7 +54,8 @@ class team(db.Model):
     team_capid = db.Column(db.Integer, default=0)
     team_intro = db.Column(db.Text)
     team_score = db.Column(db.Integer, default=0)
-    team_state = db.Column(db.Boolean, default=1)
+    team_state = db.Column(db.Integer, default=1)
+    team_sum = db.Column(db.Integer,default = 1)
     team_ans=db.relationship('que',
                             secondary=teams_ans,
                             backref=db.backref('team',lazy='dynamic'),
@@ -63,15 +68,15 @@ class team(db.Model):
 
 class que(db.Model):
     __tablename__ = 'que_data'
-    que_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    que_id = db.Column(db.Integer, primary_key=True,default = 1,nullable = False)
     que_name = db.Column(db.String(20) , unique=True)
     que_cate = db.Column(db.String(10))
     que_flag = db.Column(db.String(64))
     que_intro = db.Column(db.Text)
-    que_state = db.Column(db.Boolean, default=1)
+    que_state = db.Column(db.Integer, default=1)
     que_address = db.Column(db.Text)
     que_score = db.Column(db.Integer, default=0)
-    que_nowscore = db.Column(db.Integer, default=0)
+    # que_nowscore = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return '<Question %d>' % self.que_id

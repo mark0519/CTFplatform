@@ -5,7 +5,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-from CTF import login, register, terms_conditions, privacy_policy, challenges_list, new, new_file
+from CTF import login, register, terms_conditions, privacy_policy, challenges_list, new, new_file, teams, edit_teams, \
+    edit_users, join_teams
 
 
 def create_app(test_config=None):
@@ -67,11 +68,26 @@ def create_app(test_config=None):
     from . import admin
     app.register_blueprint(new_file.bp)
 
+    from . import teams
+    app.register_blueprint(teams.bp)
+
+    from . import join_teams
+    app.register_blueprint(join_teams.bp)
+
+    from . import admin
+    app.register_blueprint(edit_teams.bp)
+
+    from . import admin
+    app.register_blueprint(edit_users.bp)
+
     from . import challenges
     app.register_blueprint(challenges.bp)
 
     from . import home
     app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='index')
+
+    from . import users
+    app.register_blueprint(users.bp)
 
     return app

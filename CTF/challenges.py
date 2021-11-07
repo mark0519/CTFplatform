@@ -21,23 +21,24 @@ def challenges():
     if request.method == 'POST':
         id = request.form['id']
         flag = request.form['flag']
+        flag=str(flag)
         print("id==>",id)
         print("flag==>", flag)
 
         t=0
-        qu=0
+        # qu=0
         log=0
         q = que.query.filter(que.que_id == id).first()
 
         if q in myself.user_ans:                                 #如果做出来过则不再加分
             log=1
 
-        if flag == q.que_flag:                           #答案正确
+        if flag == str(q.que_flag):                           #答案正确
             print("true")
             if log:
                 return jsonify({'code':1})
             myself.user_ans.append(q)
-            myself.user_score += q.que_nowscore
+            myself.user_score += q.que_score
             if myself.user_teamid:                              #如果有队伍进行数据库信息改动
                 t=1
                 print("team")
@@ -45,23 +46,26 @@ def challenges():
                 myself_team_ans = team.query.filter(team.team_ans.any(que.que_id == q.que_id)).first()
                 if not myself_team_ans:
                     myself_team.team_ans.append(q)
-                    myself_team.team_score +=q.que_nowscore
+                    myself_team.team_score +=q.que_score
                 
-            if q.que_nowscore * 0.9 >= q.que_score * 0.75:      #如果分数未达下限进行分数改变
-                print("score")
-                qu=1
-                q.que_nowscore *=0.9
+            # if q.que_nowscore * 0.95 >= q.que_score * 0.75:      #如果分数未达下限进行分数改变
+            #     print("score")
+            #     qu=1
+            #     q.que_nowscore *=0.95
                
             if t:
                 db.session.add(myself_team)
                 print("*********1")
-            if qu:
-                db.session.add(q)
-                print("*********2")
+            # if qu:
+            #     db.session.add(q)
+            #     print("*********2")
 
             db.session.add(myself)
             db.session.commit()
             print("*********3")
+
+            myself = user.query.filter(user.user_id == login.myself.user_id).first()
+            login.myself=myself                                         #更新用户状态
             return jsonify({'code':1})
 
         else:                                                           #答案错误
@@ -71,14 +75,7 @@ def challenges():
 
 
 
-    challenges = [{
-        'id': 0,
-        'name': "test_challenges",
-        'cate': "Web",
-        'value': 100,
-        'message': "MARK&STONE",
-        'file': 'upload/123.zip'
-    }]
+    challenges = []
 
     i = 1 
     q = None
@@ -90,14 +87,21 @@ def challenges():
             i+=1
             continue
 
+        is_complete = 1
+        myself_ans = user.query.filter(user.user_ans.any(que.que_id == q.que_id)).first()
+        if not myself_ans:
+            is_complete=0
+
         challenges.append({
         'id': q.que_id,
         'name': q.que_name,
         'cate': q.que_cate,
-        'value': q.que_nowscore,
+        'value': q.que_score,
         'message': q.que_intro,
-        'file': q.que_address
+        'file': q.que_address,
+        'is_complete':is_complete
         })
         i += 1
-
-    return render_template('challenges/challenges.html', challenges=challenges)
+        
+    name = login.myself.user_name                #用户名信息
+    return render_template('challenges/challenges.html', challenges=challenges,name=name)

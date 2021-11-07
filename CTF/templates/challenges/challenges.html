@@ -16,9 +16,15 @@
                             <h3 class="card-title">{{cha.name}}</h3>
                             <p class="price"><span>{{cha.value}}</span></p>
                         </div>
+                        {% if cha.is_complete == 0 %}
                         <div class="button-container">
                             <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
+                        {% else %}
+                        <div class="button-container">
+                            <a class="btn-solid-reg-ok page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">Completed</a>
+                        </div> <!-- end of button-container -->
+                        {% endif %}
                     </div>
                     <!-- end of card -->
                     {% endif %}
@@ -35,9 +41,15 @@
                             <h3 class="card-title">{{cha.name}}</h3>
                             <p class="price"><span>{{cha.value}}</span></p>
                         </div>
+                        {% if cha.is_complete == 0 %}
                         <div class="button-container">
                             <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
+                        {% else %}
+                        <div class="button-container">
+                            <a class="btn-solid-reg-ok page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">Completed</a>
+                        </div> <!-- end of button-container -->
+                        {% endif %}
                     </div>
                     <!-- end of card -->
                     {% endif %}
@@ -51,9 +63,15 @@
                             <h3 class="card-title">{{cha.name}}</h3>
                             <p class="price"><span>{{cha.value}}</span></p>
                         </div>
+                        {% if cha.is_complete == 0 %}
                         <div class="button-container">
                             <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
+                        {% else %}
+                        <div class="button-container">
+                            <a class="btn-solid-reg-ok page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">Completed</a>
+                        </div> <!-- end of button-container -->
+                        {% endif %}
                     </div>
                     <!-- end of card -->
                     {% endif %}
@@ -68,9 +86,15 @@
                             <h3 class="card-title">{{cha.name}}</h3>
                             <p class="price"><span>{{cha.value}}</span></p>
                         </div>
+                        {% if cha.is_complete == 0 %}
                         <div class="button-container">
                             <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
+                        {% else %}
+                        <div class="button-container">
+                            <a class="btn-solid-reg-ok page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">Completed</a>
+                        </div> <!-- end of button-container -->
+                        {% endif %}
                     </div>
                     <!-- end of card -->
                     {% endif %}
@@ -85,9 +109,15 @@
                             <h3 class="card-title">{{cha.name}}</h3>
                             <p class="price"><span>{{cha.value}}</span></p>
                         </div>
+                        {% if cha.is_complete == 0 %}
                         <div class="button-container">
                             <a class="btn-solid-reg page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">DETAILS</a>
                         </div> <!-- end of button-container -->
+                        {% else %}
+                        <div class="button-container">
+                            <a class="btn-solid-reg-ok page-scroll" data-toggle="modal" data-target="#{{cha.name}}" href="#{{cha.name}}">Completed</a>
+                        </div> <!-- end of button-container -->
+                        {% endif %}
                     </div>
                     <!-- end of card -->
                     {% endif %}
@@ -172,7 +202,6 @@
                                                 </div>
 
 												<div class="col-md-3 form-group key-submit">
-
 													<button class="challenge-submit btn btn-md btn-outline-secondary float-right" type="button" onclick="postFlag{{cha.name}}()">
 														Submit
 													</button>

@@ -20,6 +20,8 @@ def index():
         md5.update(password.encode('utf-8'))
         password = md5.hexdigest()
 
+        username = str(username)
+        email = str(email)
         print("username == " + username)
         print("email == " + email)
         print("password_md5 == " + password)
@@ -33,7 +35,7 @@ def index():
         jg_name = user.query.filter(user.user_name == username).first()
 
         if not jg_name:  # 若无重复用户名
-            new_user = user(username,email,password)
+            new_user = user(username,email,password,None,0,1,0)
             db.session.add(new_user)
             db.session.commit()
             print("code == 1 ")
