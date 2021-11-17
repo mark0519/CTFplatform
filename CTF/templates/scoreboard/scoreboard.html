@@ -1,10 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="CTFx is a simple CTF platform">
+    <meta name="author" content="Mark&Stone">
+
+
+    <!-- Website Title -->
+    <title>CTFx</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/fontawesome-all.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/swiper.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/magnific-popup.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/jquery.circliful.css') }}" rel="stylesheet">
+
+
+	<!-- Favicon  -->
+
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text page-scroll" href="home.html">Aria</a> -->
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="alternative"></a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+        <!-- end of mobile menu toggle button -->
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link page-scroll" href="/admin/challenges_list">Admin</a>-->
+<!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/users">Uers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/teams">Teams</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/scoreboard">Scoreboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/challenges">Challenges</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    {% if name %}
+                    <a class="nav-link page-scroll" href="/me">{{ name }}</a>
+                    {% else %}
+                    <a class="nav-link page-scroll" href="/auth/login">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav> <!-- end of navbar -->
+    <!-- end of navbar -->
+
+
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> <!-- Bootstrap framework -->
+    <script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="{{ url_for('static', filename='js/swiper.min.js') }}"></script> <!-- Swiper for image and text sliders -->
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.js') }}"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="{{ url_for('static', filename='js/morphext.min.js') }}"></script> <!-- Morphtext rotating text in the header -->
+    <script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script> <!-- Isotope for filter -->
+    <script src="{{ url_for('static', filename='js/validator.min.js') }}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> <!-- Custom scripts -->
+    <script src="{{ url_for('static', filename='js/md5.js') }}"></script> <!-- md5.js -->
+    <script src="{{ url_for('static', filename='js/jquery.circliful.js') }}"></script> <!-- jquery.circliful.js -->
+    <script src="{{ url_for('static', filename='js/jquery.circliful.min.js') }}"></script> <!-- jquery.circliful.min.js -->
 </head>
-<body>
+<body data-spy="scroll" data-target=".fixed-top">
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-content-auth">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-container">
+                            <div id="projects" class="filter">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="section-title">ScoreBoard</div>
+                                            <h2><span style="color: white; ">Welcome ScoreBoard</span></h2>
+                                        </div> <!-- end of col -->
+                                    </div> <!-- end of row -->
+                                </div> <!-- end of container -->
+                            </div> <!-- end of filter -->
+                        </div>
+                    </div> <!-- end of col -->
+                </div> <!-- end of row -->
+            </div> <!-- end of container -->
+        </div> <!-- end of header-content -->
+    </header> <!-- end of header -->
+    <!-- end of header -->
+
+
+
+
+<style>
+.circliful {
+    position: relative;
+}
+.circle-text, .circle-info, .circle-text-half, .circle-info-half {
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    display: inline-block;
+}
+.circle-info, .circle-info-half {
+    color: #14bf98;
+}
+.circliful .fa {
+    margin: -10px 3px 0 3px;
+    position: relative;
+    bottom: 4px;
+}
+</style>
+
+
+
+
+<div class="container">
+
+<div class="row">
+
+<div name='name' class="circliful" id="myStat1" data-dimension="220" data-text='{{web}}%' data-info='Web占比'
+     data-percent="{{web}}"  data-width="12" data-fgcolor="#02FF9A" data-bgcolor="#3C4247">
+</div>
+<div name='name' class="circliful" id="myStat2" data-dimension="220" data-text='{{pwn}}%' data-info='Pwn占比'
+     data-percent="{{pwn}}" data-width="12" data-fgcolor="#02FF9A" data-bgcolor="#3C4247">
+</div>
+<div name='name' class="circliful" id="myStat3" data-dimension="220" data-text='{{re}}%' data-info='Re占比'
+     data-percent="{{re}}" data-width="12" data-fgcolor="#02FF9A" data-bgcolor="#3C4247">
+</div>
+<div name='name' class="circliful" id="myStat4" data-dimension="220" data-text='{{cry}}%' data-info='Crypto占比'
+     data-percent="{{cry}}" data-width="12" data-fgcolor="#02FF9A" data-bgcolor="#3C4247">
+</div>
+<div name='name' class="circliful" id="myStat5" data-dimension="220" data-text='{{misc}}%' data-info='Misc占比'
+     data-percent="{{misc}}" data-width="12" data-fgcolor="#02FF9A" data-bgcolor="#3C4247">
+</div>
+</div>
+
+<div class="row pb-4">
+<div class="col-md-12">
+<ul class="nav nav-tabs nav-fill" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" data-toggle="tab" href="#teams" role="tab" aria-selected="true">
+Teams
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" data-toggle="tab" href="#users" role="tab" aria-selected="false">
+Users
+</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="tab-content">
+<div class="tab-pane fade active show" id="teams" role="tabpanel">
+<table id="scoreboard" class="table table-striped border">
+
+<thead>
+<tr>
+
+<th class="sort-col"><b>Place</b> </th>
+<th class="sort-col"><b>Team</b> </th>
+<th class="sort-col"><b>Score</b> </th>
+
+</tr>
+</thead>
+
+{% for t in teams %}
+<tbody>
+<tr>
+<td class="sort-col">{{t.place}}</td>
+<td class="sort-col">{{t.name}}</td>
+<td class="sort-col">{{t.score}}</td>
+</tr>
+</tbody>
+{% endfor %}
+
+</table>
+</div>
+
+<div class="tab-pane fade" id="users" role="tabpanel">
+<table id="scoreboard" class="table table-striped border">
+<thead>
+<th class="sort-col"><b>Place</b></th>
+<th class="sort-col"><b>User</b></th>
+<th class="sort-col"><b>Score</b></th>
+</tr>
+</thead>
+
+{% for u in users %}
+<tbody>
+<tr>
+<td class="sort-col">{{u.place}}</td>
+<td class="sort-col">{{u.name}}</td>
+<td class="sort-col">{{u.score}}</td>
+</tr>
+</tbody>
+{% endfor %}
+
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2021 <a href="https://github.com/mark0519/CTFplatform">CTFx</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright -->
+    <!-- end of copyright -->
+
+
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script> <!-- Bootstrap framework -->
+    <script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="{{ url_for('static', filename='js/swiper.min.js') }}"></script> <!-- Swiper for image and text sliders -->
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.js') }}"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="{{ url_for('static', filename='js/morphext.min.js') }}"></script> <!-- Morphtext rotating text in the header -->
+    <script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script> <!-- Isotope for filter -->
+    <script src="{{ url_for('static', filename='js/validator.min.js') }}"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> <!-- Custom scripts -->
+    <script src="{{ url_for('static', filename='js/md5.js') }}"></script> <!-- md5.js -->
+    <script src="{{ url_for('static', filename='js/jquery.circliful.js') }}"></script> <!-- jquery.circliful.js -->
+    <script src="{{ url_for('static', filename='js/jquery.circliful.min.js') }}"></script> <!-- jquery.circliful.min.js -->
+
+
+<script>
+$( document ).ready(function() {
+        $('#myStat1').circliful();
+    });
+$( document ).ready(function() {
+        $('#myStat2').circliful();
+    });
+$( document ).ready(function() {
+        $('#myStat3').circliful();
+    });
+$( document ).ready(function() {
+        $('#myStat4').circliful();
+    });
+$( document ).ready(function() {
+        $('#myStat5').circliful();
+    });
+
+</script>
 
 </body>
-</html>

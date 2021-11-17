@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-=
+import time
 from CTF import login
 from CTF.models import user,que,db,team
 
 import hashlib
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,session
 )
 from werkzeug.exceptions import abort
 
@@ -14,14 +15,14 @@ bp = Blueprint('/users', __name__)
 
 @bp.route('/users', methods=['GET', 'POST'])
 def aaaaa():
-    if not login.myself:
-        return redirect('auth/login')
+    if 'id' not in session:
+        return redirect('../auth/login')
     if request.method == 'POST':
         logout = request.form['logout']
         print(type(logout))
         if logout=='1':
-           login.myself=None
-           return redirect('../auth/login')
+            session.clear()
+            return redirect('../auth/login')
         oldpassword = request.form['oldpasswd']
         newpassword = request.form['newpasswd']
         print(oldpassword)
@@ -36,26 +37,34 @@ def aaaaa():
         newpassword = md5.hexdigest()
         print(newpassword)
 
-        if oldpassword == login.myself.user_pwd:
-            myself = user.query.filter(user.user_pwd == oldpassword).first()
+        myself = user.query.filter(user.user_id==session.get('id')).first()
+        if oldpassword == myself.user_pwd:
             myself.user_pwd = newpassword
             db.session.add(myself)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             return jsonify({'code': 1})
         else:
             print("旧密码错误")
             return jsonify({'code': 0})
     else:
         pass
-    t = team.query.filter(team.team_id == login.myself.user_teamid).first()
+
+    me = user.query.filter(user.user_id==session.get('id')).first()
+    t = team.query.filter(team.team_id == me.user_teamid).first()
     if not t:
         t = 'no team'
     else:
         t = t.team_name
 
-    username=login.myself.user_name
-    score=login.myself.user_score
-    email=login.myself.user_mail
+    username=me.user_name
+    score=me.user_score
+    email=me.user_mail
 
     challenges=[]
     i = 1 
@@ -79,7 +88,6 @@ def aaaaa():
         i+=1
         print("****x")
 
-    # print("*****")
-    # print(login.myself)
-    name = login.myself.user_name                #用户名信息
+
+    name = session.get('username')               #用户名信息
     return render_template('users/users.html',challenges=challenges,username=username,score=score,email=email,name=name,team=t)

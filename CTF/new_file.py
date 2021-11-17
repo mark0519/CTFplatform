@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 
 from CTF import db,new,login
-from CTF.models import que
+from CTF.models import que,user
 import uuid
 
 def random_filename(filename):  #上传文件重命名
@@ -19,7 +19,7 @@ def random_filename(filename):  #上传文件重命名
 
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,session
 )
 from werkzeug.exceptions import abort
 
@@ -28,21 +28,39 @@ bp = Blueprint('/admin/new_file', __name__)
 
 @bp.route('/admin/new_file', methods=['POST'])
 def challenges_list():
-    if not login.myself or login.myself.user_teamid !=1:
+    if 'id' not in session or user.query.filter(user.user_id == session.get('id')).first().user_teamid !=1:
         return redirect('../auth/login')
 
     if request.method == 'POST':
         file = request.files['file']
         print(request.files)
-        filename=random_filename(file.filename)
 
+        if not file:
+            new_que = que.query.filter(que.que_id == new.new_que_id).first()
+            new_que.que_address=None
+            db.session.add(new_que)
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
+            return redirect('challenges_list')
+        filename=random_filename(file.filename)
         if not que.query.filter(que.que_id == new.new_que_id).first():           #题目名重复
             return jsonify({'code': 0}),200
         elif not filename:                            #文件类型出错
             q = que.query.filter(que.que_id == new.new_que_id).first()
             new.new_que_id -= 1
             db.session.delete(q)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             return '''
             <script>
                 alert("请上传压缩包格式文件");
@@ -56,6 +74,12 @@ def challenges_list():
             new_que = que.query.filter(que.que_id == new.new_que_id).first()
             new_que.que_address=path
             db.session.add(new_que)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
     
     return redirect('challenges_list')

@@ -6,11 +6,11 @@ from sqlalchemy.sql import func
 from werkzeug.utils import secure_filename
 
 from CTF import db,login
-from CTF.models import que
+from CTF.models import que,user
 new_que_id=0
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,session
 )
 from werkzeug.exceptions import abort
 
@@ -20,7 +20,7 @@ bp = Blueprint('/admin/new', __name__)
 @bp.route('/admin/new', methods=['GET', 'POST'])
 def challenges_list():
     global new_que_id
-    if not login.myself or login.myself.user_teamid !=1:
+    if 'id' not in session or user.query.filter(user.user_id == session.get('id')).first().user_teamid !=1:
         return redirect('../auth/login')
     if request.method == 'POST':
         cname = request.form.get('cname')
@@ -59,13 +59,19 @@ def challenges_list():
             new_que_id+=1
             new_que.que_id = new_que_id
             db.session.add(new_que)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             print(new_que_id)
         else:                                                   #题目名字重复
             return jsonify({'code': 0}),200
 
-        name = login.myself.user_name
+        name = session.get('username')
         return render_template('admin/new.html',name=name)
     else:
-        name = login.myself.user_name
+        name = session.get('username')
         return render_template('admin/new.html',name=name)

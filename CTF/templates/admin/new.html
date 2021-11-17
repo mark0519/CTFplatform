@@ -111,7 +111,7 @@
 <!--                            <input class="form-control-file" type="file" name="file" multiple="multiple">-->
 <!--                            <div class="help-block with-errors"></div>-->
 <!--                        </div>-->
-                        <form action="http://localhost:5000/admin/new" data-toggle="validator" data-focus="false" method="post" id="new_1">
+                        <form action="/admin/new" data-toggle="validator" data-focus="false" method="post" id="new_1">
                         <div class="form-group">
                             <textarea class="form-control-textarea" id="cmessage" required></textarea>
                             <label class="label-control" for="cmessage">Challenge message</label>
@@ -119,7 +119,7 @@
                         </div>
                         </form>
                             <h5>Files:</h5>
-                            <form id ="new_3" action="http://localhost:5000/admin/new_file" method="POST" enctype="multipart/form-data">
+                            <form id ="new_3" action="/admin/new_file" method="POST" enctype="multipart/form-data">
                                 <input  type="file" name="file"  />
 <!--                                <button type="submit" class="form-control-submit-button_file" >upload</button>-->
                             </form>
@@ -128,7 +128,7 @@
                 <div class="col-lg-6">
 
                     <!-- Contact Form -->
-                    <form id="new_2" action="http://localhost:5000/admin/new" data-toggle="validator" data-focus="false" method="post">
+                    <form id="new_2" action="/admin/new" data-toggle="validator" data-focus="false" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control-input" id="cname" required>
                             <label class="label-control" for="cname">Challenges Name</label>
@@ -178,7 +178,7 @@
                                 httpRequest.open('POST', location.href = '/admin/new', false); //第二步：打开连接
                                 httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
                                 httpRequest.send('cname=' + cname + '&category=' + category + '&value=' + value + '&state=' + state + '&flag=' + flag + '&cmessage=' + cmessage);//发送请求 将情头体写在send中
-                                $("#new_3").attr("action", "http://localhost:5000/admin/new_file");
+                                $("#new_3").attr("action", "/admin/new_file");
                                 $("#new_3").attr("method", "POST");
                                 $('#new_3').submit();
                                 httpRequest.onreadystatechange =  postnew_re()

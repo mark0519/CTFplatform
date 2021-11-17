@@ -24,8 +24,8 @@ class user(db.Model):
     user_name = db.Column(db.String(20), unique=True, nullable=False)
     user_mail = db.Column(db.String(30), unique=True, nullable=False)
     user_pwd = db.Column(db.String(255), nullable=False)
-    user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))
-    is_captain = db.Column(db.Integer, default=0)
+    user_teamid = db.Column(db.Integer, db.ForeignKey('team_data.team_id'))    
+    is_captain = db.Column(db.Integer, default=0)                   #0为普通用户或队员，1为队长，-1为正在申请该队伍
     user_state = db.Column(db.Integer, default=1)
     user_score = db.Column(db.Integer, default=0)
     user_ans=db.relationship('que',

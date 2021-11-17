@@ -1,8 +1,8 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for,jsonify
+    Blueprint, flash, g, redirect, render_template, request, url_for,jsonify,session
 )
 from werkzeug.exceptions import abort
-from CTF import login,db
+from CTF import db
 from CTF.models import user
 
 bp = Blueprint('/admin/edit_users', __name__)
@@ -10,7 +10,7 @@ bp = Blueprint('/admin/edit_users', __name__)
 
 @bp.route('/admin/edit_users', methods=['GET','POST'])
 def feusers():
-    if not login.myself or login.myself.user_teamid !=1:
+    if 'id' not in session or user.query.filter(user.user_id == session.get('id')).first().user_teamid !=1:
         return redirect('../auth/login')
     # 'id='+{{u.id}}+'&name=' + name + '&score=' + score + '&state=' + state
     if request.method == 'POST':
@@ -31,7 +31,13 @@ def feusers():
             print("********1")
             db.session.add(new)
             print("********2")
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             print("********3")
         else:           #用户名重复不可更改
             return jsonify({'code': 0}),200
@@ -55,5 +61,5 @@ def feusers():
         })
         i += 1
 
-    name = login.myself.user_name
+    name = session.get('username')
     return render_template('admin/edit_users.html',users=users,name=name)

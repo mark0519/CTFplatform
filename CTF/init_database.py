@@ -10,7 +10,7 @@ app.config['UPLOAD_FOLDER'] = 'upload/'
 
 app.config['SECRET_KEY'] = 'ctfx'
     # 设置数据库连接url
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://adm1n:mark&stone@localhost:3306/ctf_database'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://adm1n:mark&stone@localhost:3306/ctf_database?autocommit=true'
     # 设置这一项是每次请求结束后都会自动提交数据库中的变动
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -101,14 +101,26 @@ db.drop_all()
 db.create_all()
 print("******1")
 new_team = team(team_name = 'adm1ns',team_capid = 1,team_intro = '',team_score = 0,team_state = 0,team_sum=1)
-new_user = user('adm1n','adm1n@adm1n.com','ea82410c7a9991816b5eeeebe195e20a',1,1,0,0)
+new_user = user('adm1n','adm1n@adm1n.com','d9a27a55077cb6a913c385757dfd6504',1,1,0,0)
 print("******2")
 db.session.add(new_team)
 print("******3")
-db.session.commit()
+try:
+    db.session.commit()
+except:
+    db.session.rollback()
+    raise
+finally:
+    db.session.close()
 print("******4")
 db.session.add(new_user)
 print("******5")
-db.session.commit()
+try:
+    db.session.commit()
+except:
+    db.session.rollback()
+    raise
+finally:
+    db.session.close()
 print("******6")
 print("初始化成功")

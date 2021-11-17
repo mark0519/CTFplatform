@@ -3,4 +3,165 @@
 {% block titles %}
 <div class="section-title">my Teams</div>
 <h2><span style="color: white; ">{{team_name}}</span></h2>
+<h2><span style="color: white; ">Total Score: {{team_score}}</span></h2>
+{% endblock %}
+
+
+{% block buttons %}
+{% if captain %}
+ <div class="button-container">
+     <h2><span style="color: white; ">Hello Team Captain !</span></h2>
+ </div>
+{% else %}
+ <div class="button-container">
+     <h2><span style="color: white; ">Hello Team Member !</span></h2>
+ </div>
+{% endif %}
+{% endblock %}
+
+
+{% block teams %}
+
+{% if captain %}
+
+<div id="intro" class="basic-1">
+        <div class="container">
+
+<div>
+<table id="teams" class="table table-striped border">
+<thead>
+<tr>
+
+<th class="sort-col text-center"><b>ID</b> </th>
+<th class="sort-col"><b>User Name</b> </th>
+<th class="sort-col"><b>User Score</b> </th>
+<th class="sort-col"><b>State</b> </th>
+<th class="sort-col"><b>Apply</b> </th>
+</tr>
+</thead>
+
+	<script>
+		function jointeam(cmd,id,name) {
+            var c;
+            var pass = 0;
+            if (cmd == 1) {
+                c = prompt("确认解散战队?\n请在下方输入[我确认解散战队]\n(仅输入方括号内文字)");
+                if (c == "我确认解散战队") {
+                    pass = 1;
+                }
+            } else if (cmd == 2) {
+                c = confirm("确认把队员 [" + id + "] " + name + " 移除战队?");
+                if (c == true) {
+                    pass = 2;
+                }
+            } else if (cmd == 3) {
+                c = confirm("确认同意用户 [" + id + "] " + name + " 加入战队?");
+                if (c == true) {
+                    pass = 3;
+                }
+            } else if (cmd == 4) {
+                c = confirm("确认拒绝用户 [" + id + "] " + name + " 加入战队?");
+                if (c == true) {
+                    pass = 4
+                }
+            }
+
+            var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+            httpRequest.open('POST', location.href = '/my_team', false); //第二步：打开连接
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");//设置请求头
+            httpRequest.send('cmd=' + pass + '&id=' + id);//发送请求 将情头体写在send中
+            httpRequest.onreadystatechange = myteam_re()
+
+            function myteam_re() {
+                if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                    var json = httpRequest.responseText;//获取到服务端返回的数据
+                    var obj = JSON.parse(json);
+                    if (obj.code == 1) {
+                        alert("操作成功");
+                        window.location.href = '/teams';
+                    }
+                }
+            }
+        }
+	</script>
+
+{% for t in allteams %}
+<tbody>
+<tr>
+<td class="text-center">{{t.id}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.name}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.score}}</td>
+    {% if t.state == 1 %}
+<td class="d-none d-md-table-cell d-lg-table-cell"> Captain </td>
+    <td>
+	    <button class="badge badge-danger" onclick="jointeam(1,{{t.id}},'{{t.name}}')" > Disband the team </button>
+    </td>
+    {% elif t.state == 0 %}
+<td class="d-none d-md-table-cell d-lg-table-cell"> Member </td>
+    <td>
+	    <button class="badge badge-warning" onclick="jointeam(2,{{t.id}},'{{t.name}}')" > Move out of the team </button>
+    </td>
+    {% else %}
+<td class="d-none d-md-table-cell d-lg-table-cell"> Applying </td>
+    <td>
+	    <button class="badge badge-primary" onclick="jointeam(3,{{t.id}},'{{t.name}}')" > Allow </button>
+        <button class="badge badge-primary" onclick="jointeam(4,{{t.id}},'{{t.name}}')" > Refuse </button>
+    </td>
+    {% endif %}
+
+
+</tr>
+</tbody>
+
+{% endfor %}
+
+</table>
+</div>
+</div>
+</div>
+
+{% else %}
+
+<div id="intro" class="basic-1">
+        <div class="container">
+
+<div>
+<table id="teams" class="table table-striped border">
+<thead>
+<tr>
+
+<th class="sort-col text-center"><b>ID</b> </th>
+<th class="sort-col"><b>User Name</b> </th>
+<th class="sort-col"><b>User Score</b> </th>
+<th class="sort-col"><b>State</b> </th>
+<!--<th class="sort-col"><b>Apply</b> </th>-->
+</tr>
+</thead>
+
+{% for t in allteams %}
+<tbody>
+<tr>
+    {% if t.state == 1 %}
+<td class="text-center">{{t.id}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.name}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.score}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell"> Captain </td>
+    {% elif t.state == 0 %}
+<td class="text-center">{{t.id}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.name}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell">{{t.score}}</td>
+<td class="d-none d-md-table-cell d-lg-table-cell"> Member </td>
+    {% endif %}
+
+</tr>
+</tbody>
+
+{% endfor %}
+
+</table>
+</div>
+</div>
+</div>
+{% endif %}
+
 {% endblock %}

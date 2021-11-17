@@ -1,15 +1,22 @@
 {% extends "teams/teams_base.html" %}
 
 {% block titles %}
+
+{% if teams %}
+<div class="section-title">Teams</div>
+<h2><span style="color: white; ">You can see all the teams here ! </span></h2>
+{% else %}
 <div class="section-title">Teams</div>
 <h2><span style="color: white; ">Choose to create or join a team !</span></h2>
+{% endif %}
+
 {% endblock %}
 
 
 {% block buttons %}
 {% if teams %}
  <div class="button-container">
-    <a class="btn-solid-reg page-scroll"  href="/my_teams">My Teams</a>
+    <a class="btn-solid-reg page-scroll"  href="/my_team">My Teams</a>
  </div> <!-- end of button-container -->
 {% else %}
  <div class="button-container">
@@ -26,9 +33,6 @@
 											<h2 class="challenge-name text-center pt-3">
 												Create Team
 											</h2>
-
-
-
                                                     <div class="text-center">
                                                         <p>Plz input your Team name </p>
 														<p>Once the team name is determined, it cannot be changed</p>

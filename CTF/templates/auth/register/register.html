@@ -74,7 +74,10 @@
                                                         if (obj.code == 1) {
                                                             alert("注册成功,请登陆")
                                                             window.location.href = '/auth/login';
-                                                        } else {
+                                                        } else if (obj.code == -1) {
+                                                            alert("输入内容不能为空")
+                                                            window.location.href = '/auth/register';
+                                                        }{
                                                             alert("该用户名已被注册!");
                                                         }
                                                     }

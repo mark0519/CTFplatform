@@ -1,22 +1,22 @@
 from re import T
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for,jsonify
+    Blueprint, flash, g, redirect, render_template, request, url_for,jsonify,session
 )
 from werkzeug.exceptions import abort
 
 from CTF.models import que,user,team
-from CTF import login,db
+from CTF import db
 
 bp = Blueprint('challenges', __name__)
 
 
 @bp.route('/challenges', methods=['GET', 'POST'])
 def challenges():
-    if not login.myself:
-        return redirect('auth/login')
+    if 'id' not in session:
+        return redirect('../auth/login')
 
     from CTF.models import db
-    myself = user.query.filter(user.user_id == login.myself.user_id).first()
+    myself = user.query.filter(user.user_id == session.get('id')).first()
 
     if request.method == 'POST':
         id = request.form['id']
@@ -38,6 +38,7 @@ def challenges():
             if log:
                 return jsonify({'code':1})
             myself.user_ans.append(q)
+            print(myself.user_ans,type(myself.user_ans))
             myself.user_score += q.que_score
             if myself.user_teamid:                              #如果有队伍进行数据库信息改动
                 t=1
@@ -61,19 +62,19 @@ def challenges():
             #     print("*********2")
 
             db.session.add(myself)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             print("*********3")
-
-            myself = user.query.filter(user.user_id == login.myself.user_id).first()
-            login.myself=myself                                         #更新用户状态
             return jsonify({'code':1})
 
         else:                                                           #答案错误
             print("wrong")
             return jsonify({'code':0})
-
-
-
 
     challenges = []
 
@@ -88,8 +89,7 @@ def challenges():
             continue
 
         is_complete = 1
-        myself_ans = user.query.filter(user.user_ans.any(que.que_id == q.que_id)).first()
-        if not myself_ans:
+        if q not in myself.user_ans:
             is_complete=0
 
         challenges.append({
@@ -103,5 +103,5 @@ def challenges():
         })
         i += 1
         
-    name = login.myself.user_name                #用户名信息
+    name = session.get('username')          #用户名信息
     return render_template('challenges/challenges.html', challenges=challenges,name=name)

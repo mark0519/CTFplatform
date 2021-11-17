@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-=
 from CTF import db
 from CTF.models import user
-
 import hashlib
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,session
 )
 from werkzeug.exceptions import abort
 
 bp = Blueprint('/auth/login', __name__)
-myself = None
 
 @bp.route('/auth/login', methods=['GET', 'POST'])
 def index():
-    global email, username , myself
+    global email, username
     # 如果接收到数据
-    if myself:
+    if 'id' in session:
         return redirect('../../')
     if request.method == 'POST' or request.method == 'PUT':
         account = request.form['name']
@@ -35,6 +33,7 @@ def index():
             print("Username == " + str(username))
         print("mode == " + str(mode))
         print("password_md5 == " + password)
+        
         '''
         mode = 0 是邮箱(email)登陆
         mode = 1 是用户名(username)登陆
@@ -52,7 +51,10 @@ def index():
             else:
                 print("code == 1")
                 print('[debug] ==> 2')
-                myself = test
+                session['id'] = test.user_id
+                session['username'] = test.user_name
+                # print(session)
+                # print("*********")
                 return jsonify({'code': 1, 'msg': 'pass'}), 200
         else:
             test = user.query.filter(user.user_name == username).first()
@@ -63,7 +65,11 @@ def index():
             else:
                 print("code == 1")
                 print('[debug] ==> 4')
-                myself = test
+                session['id'] = test.user_id
+                session['username'] = test.user_name
+                # print(session)
+                # print("*********")
                 return jsonify({'code': 1, 'msg': 'pass'}), 200
-
+    # print(session)
+    # print("*********")
     return render_template('auth/login/login.html')

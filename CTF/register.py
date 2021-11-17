@@ -2,7 +2,7 @@ from CTF import db
 from CTF.models import user
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
+    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify,session
 )
 from werkzeug.exceptions import abort
 import hashlib
@@ -12,6 +12,8 @@ bp = Blueprint('/auth/register', __name__)
 
 @bp.route('/auth/register', methods=['GET', 'POST'])
 def index():
+    if 'id' in session:
+        return redirect('../../')
     if request.method == 'POST':
         username = request.form['name']
         email = request.form['email']
@@ -26,6 +28,11 @@ def index():
         print("email == " + email)
         print("password_md5 == " + password)
 
+        if not email or not username or not password:
+            return jsonify({'code': -1}),200                        #用户名或密码或邮箱为空
+
+
+
         '''
         email 是用户的邮箱
         username 是用户名
@@ -37,7 +44,13 @@ def index():
         if not jg_name:  # 若无重复用户名
             new_user = user(username,email,password,None,0,1,0)
             db.session.add(new_user)
-            db.session.commit()
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                raise
+            finally:
+                db.session.close()
             print("code == 1 ")
             return jsonify({'code': 1, 'msg': 'pass'})
         else:  # 若有重复用户名

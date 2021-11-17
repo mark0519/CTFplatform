@@ -1,0 +1,11 @@
+*** Starting uWSGI 2.0.20 (64bit) on [Sun Nov  7 20:22:45 2021] ***
+compiled with version: 9.3.0 on 07 November 2021 12:11:50
+os: Linux-5.4.0-89-generic #100-Ubuntu SMP Fri Sep 24 14:50:10 UTC 2021
+nodename: ubuntu
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /root/mark/ctfx/CTFplatform
+writing pidfile to /mark/ctfx/CTFplatform/uwsgi.pid
+open("/mark/ctfx/CTFplatform/uwsgi.pid"): No such file or directory [core/utils.c line 3624]
